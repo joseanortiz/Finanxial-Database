@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %} Add Client | Finanxial {% endblock %}
+
+{% block content %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <br/><br/>
+
+    <h2 class="text-muted">Add Client</h2>
+
+
+  {% if submitted %}
+  Successful
+  {% else %}
+  <form method=POST>
+    {% csrf_token %}
+    <div class="mb-3">
+    {{ form.client_name }}
+    </div>
+    <div class="mb-3">
+    {{ form.contact_name }}
+    </div>
+    <div class="mb-3">
+    {{ form.contact_number }}
+    </div>
+    <div class="mb-3">
+    {{ form.contact_email }}
+    </div>
+    <div class="mb-3">
+    {{ form.industry_type }}
+    </div>
+    <div class="mb-3">
+    {{ form.project_manager }}
+    </div>
+    <div class="mb-3">
+    {{ form.tax_id }}
+    </div>
+    <div class="mb-3">
+    {{ form.bank_accounts }}
+    </div>
+    <div class="mb-3">
+    <select name="client_type" class="form-control" required id="id_client_type">
+      <option value="">Client Type</option>
+
+      <option value="Data Entry">Data Entry</option>
+
+      <option value="Reconcile and Review">Reconcile and Review</option>
+
+      <option value="Review">Review</option>
+    </select>
+    </div>
+    <div class="mb-3">
+    <select name="client_group" class="form-control" required id="id_client_group">
+      <option value="">Client Group</option>
+      {% for group in groups %}
+      <option value="{{ group.client_group }}">{{ group.client_group }}</option>
+      {% endfor %}
+    </select>
+    </div>
+
+
+    <center><input type="submit" value="Submit" class="btn btn-outline-primary"></center>
+
+  </form>
+  {% endif %}
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+{% endblock %}

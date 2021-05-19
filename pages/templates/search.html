@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} Search | Finanxial {% endblock %}
+
+{% block content %}
+
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<br/><br/>
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-success" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+{% endif %}
+
+
+  <h2 for="exampleDataList" class="form-label text-muted">Search for Client</h2>
+
+  <div class="input-group input-group-lg mb-3" >
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select Type</button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'searchCN' %}">Client Name</a></li>
+      <li><a class="dropdown-item" href="{% url 'searchTI' %}">Tax ID</a></li>
+      <li><a class="dropdown-item" href="{% url 'searchPM' %}">Project Manager</a></li>
+    </ul>
+
+    <div class=" input-group-lg col-lg-5">
+    <form class="d-flex" method=POST action="{% url 'searchCN_q' %}">
+      {% csrf_token %}
+
+
+
+      <input type="search" class="form-control" aria-label="Text input with dropdown button"  name="searched">
+      <span><button class="btn btn-outline-secondary btn-lg" type="submit">Search</button></span>
+
+    </form>
+    </div>
+  </div>
+
+
+{% endblock %}

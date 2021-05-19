@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} Documents | Finanxial {% endblock %}
+
+{% block content %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <br/><br/>
+  <h2 class="text-muted">Documents</h2>
+  <br/>
+  {% if documents %}
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>File Type</th>
+          <th>Bank</th>
+          <th>Description</th>
+
+        </tr>
+      </thead>
+      {% for items in document_list %}
+        <tbody>
+          <tr>
+            <td>{{ items.client }}</td>
+            <td>{{ items.document_type }}</td>
+            <td>{{ items.bank }}</td>
+            <td>{{ items.description }}</td>
+
+          </tr>
+
+      </tbody>
+     {% endfor %}
+   </table>
+  </div>
+  {%endif%}
+
+
+
+{% endblock %}

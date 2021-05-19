@@ -1,0 +1,124 @@
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <br/><br/>
+  <h2>Add Client Record</h2>
+
+  {% if submitted %}
+  {% else %}
+  <form action="" method=POST>
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <input type="submit" value="Submit" class="btn btn-dark"
+
+  </form>
+  {% endif %}
+
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <br/><br/>
+    <h2>Add Client Record</h2>
+
+
+
+
+    <form method="POST" class="col-10">
+      {% csrf_token %}
+
+    <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-default">Client Name:‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‎‎‎‎‎‏‏‎ ‎‏‏‎ ‏‏‎ ‎‎</span>
+    </div>
+
+
+    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="client_name">
+
+  </div>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Contact Name:‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎</span>
+  </div>
+
+  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="contact_name">
+
+  </div>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Contact Number:</span>
+  </div>
+
+
+  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="contact_number">
+
+  </div>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Contact Email:‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‎‎‎‎‎‏‏‎   ‎‏‏‎ </span>
+  </div>
+
+
+  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="contact_email">
+
+  </div>
+
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Client Type:‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‏‏‎ ‎‏‏‎ ‎‏‏‎ ‏‏‎ ‎‏‏‎ ‎‎‎</span>
+  </div>
+
+
+  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="client_type">
+
+  </div>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Industry Type:‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ </span>
+  </div>
+
+
+  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="industry_type">
+
+  </div>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Project Manager:</span>
+  </div>
+
+
+  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="project_manager">
+
+  </div>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Tax ID:‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎</span>
+  </div>
+
+
+  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="tax_id">
+
+  </div>
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Bank Accounts:‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎</span>
+  </div>
+
+
+  <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="bank_accounts">
+
+  </div>
+
+  <div class="d-grid gap-2 col-2 mx-auto"">
+    <button class="btn btn-primary" type="submit">Add Client</button>
+  </div>
+  </form>
+
+  <br/><br/>
+
+  {% endblock %}

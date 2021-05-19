@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Add Group | Finanxial {% endblock %}
+
+{% block content %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <br/><br/>
+
+    <h2 class="text-muted">Add Client Group</h2>
+
+
+  {% if submitted %}
+  Successful
+  {% else %}
+  <form method=POST>
+    {% csrf_token %}
+
+    <div class="mb-3">
+    {{ form.as_p }}
+    </div>
+
+    <center><input type="submit" value="Submit" class="btn btn-outline-primary"></center>
+
+  </form>
+  {% endif %}
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+{% endblock %}

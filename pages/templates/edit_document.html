@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit Document | Finanxial {% endblock %}
+
+{% block content %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <br/><br/>
+<h2 class="text-muted">Edit Document</h2>
+  <br/>
+
+<form class="form-inline" method="POST">
+  {% csrf_token %}
+
+<div class="row">
+  <div class="col">
+    <label class="form-label">Client Name</label>
+    <select name="client" class="form-control" placeholder="Client" id="id_client">
+      <option value="{{ client.id }}" selected>{{ client.client_name }}</option>
+    </select>
+  </div>
+  <div class="col">
+  <label class="form-label">File Type</label>
+  <input type="text" name="document_type"  value="{{ document.document_type }}" class="form-control" maxlength="200" required id="id_document_type">
+  </div>
+  <div class="col">
+  <label class="form-label">Bank</label>
+  <input type="text" name="bank" class="form-control" value="{{ document.bank }}" maxlength="200" required id="id_bank">
+  </div>
+  <div class="col">
+  <label class="form-label">Description</label>
+  <input type="text" name="description" class="form-control" value="{{ document.description }}" maxlength="200" required id="id_description">
+  </div>
+</div>
+
+<br/>
+
+<div class="d-grid gap-2 col-2 mx-auto"">
+<button class="btn btn-primary" type="submit">Edit</button>
+</div>
+<p style="
+margin-bottom: 5px;
+">
+
+<div class="d-grid gap-2 col-2 mx-auto"">
+<a class="btn btn-danger" href="delete/" role="button">Delete</a>
+</div>
+<p style="
+margin-bottom: 5px;
+">
+
+
+</form>
+
+
+
+
+{% endblock %}

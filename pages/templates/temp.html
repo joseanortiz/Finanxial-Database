@@ -1,0 +1,59 @@
+
+  <fieldset>
+    <br/><br/>
+    <left><h2 class="text-muted">‎‏‏{{ item.client_name }}'s Record</h2></left>
+    <br/><br/>
+    <div class="container">
+      <div class="row align-items-start">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Client Name:</label>
+          <input type="text" id="disabledTextInput" class="form-control" value="{{ item.client_name }}" name="client_name">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Industry Type:</label>
+          <input type="text" id="disabledTextInput" class="form-control" value="{{ item.industry_type}}" name="industry_type">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Client Type</label>
+          <select name="client_type" class="form-control" required id="id_client_type">
+            <option value="{{ item.client_type }}">{{ item.client_type }}</option>
+
+            <option value="Data Entry">Data Entry</option>
+
+            <option value="Reconcile and Review">Reconcile and Review</option>
+
+            <option value="Review">Review</option>
+          </select>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Name</label>
+          <input type="text" id="disabledTextInput" class="form-control" value="{{ item.contact_name }}" name="contact_name">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Number</label>
+          <input type="text" id="disabledTextInput" class="form-control" value="{{ item.contact_number}}" name="contact_number">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Email</label>
+          <input type="text" id="disabledTextInput" class="form-control" value="{{ item.contact_email }}" name="contact_email">
+        </div>
+      </div>
+      <div class="row align-items-end">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Project Manager:</label>
+          <input type="text" id="disabledTextInput" class="form-control" value="{{ item.project_manager }}" name="project_manager">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Tax ID:</label>
+          <input type="text" id="disabledTextInput" class="form-control" value="{{ item.tax_id }}" name="tax_id">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Bank Accounts:</label>
+          <input type="text" id="disabledTextInput" class="form-control" value="{{ item.bank_accounts }}" name="bank_accounts">
+        </div>
+      </div>
+    </div>
+
+  </fieldset>

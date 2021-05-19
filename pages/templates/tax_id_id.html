@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Search | Tax ID | Finanxial {% endblock %}
+
+{% block content %}
+
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+
+
+<br/><br/>
+  <h2 for="exampleDataList" class="form-label">Search for Client</h2>
+
+  <div class="input-group input-group-lg mb-3" >
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Tax ID</button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'searchCN' %}">Client Name</a></li>
+      <li><a class="dropdown-item" href="{% url 'searchPM' %}">Project Manager</a></li>
+    </ul>
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ group_id.client_group }}</button>
+    <ul class="dropdown-menu">
+      {% for group in groups %}
+      <li><a class="dropdown-item" href="{% url 'searchTI_id' group.id %}">{{ group.client_group }}</a></li>
+      {% endfor %}
+    </ul>
+    <div class=" input-group-lg col-lg-5">
+      <form class="d-flex" method=POST action="{% url 'searchTI_q_id' group_id.id %}">
+        {% csrf_token %}
+
+
+
+        <input type="search" class="form-control" aria-label="Text input with dropdown button"  name="searched">
+        <span><button class="btn btn-outline-secondary btn-lg" type="submit">Search</button></span>
+
+      </form>
+      </div>
+  </div>
+
+
+
+
+{% endblock %}
