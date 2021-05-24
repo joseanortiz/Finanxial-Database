@@ -31,7 +31,23 @@
   <label class="form-label">Description</label>
   <input type="text" name="description" class="form-control" value="{{ document.description }}" maxlength="200" required id="id_description">
   </div>
-</div>
+  <div class="col">
+    <label class="form-label">Completion Status</label>
+    <br/>
+    {% if document.completed == True %}
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+      <input type="checkbox" class="btn-check" id="completed" name="completed" autocomplete="off" checked>
+      <label class="btn btn-outline-primary" for="completed" >Recieved</label>
+    </div>
+    {% else %}
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+      <input type="checkbox" class="btn-check" id="completed" name="completed" autocomplete="off">
+      <label class="btn btn-outline-primary" for="completed" >Recieved</label>
+    </div>
+    {% endif %}
+  </div>
+  </div>
+
 
 <br/>
 

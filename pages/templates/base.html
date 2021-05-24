@@ -15,7 +15,7 @@
       {% block title %}
 
       {% endblock %}
-      
+
     </title>
     <!-- Bootstrap core CSS -->
 <link href="{% static 'css/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -43,7 +43,7 @@
   <body>
 
 <header class="navbar navbar-primary sticky-top bg-primary flex-md-nowrap p-0 t">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/search/"  ><img src="{% static 'images/finanxial_logo3.png' %}" width=30></a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/search/"  ><img src="{% static 'images/finanxial_logo_new2.png' %}" width=150></a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -83,13 +83,6 @@
               <span data-feather="folder"></span>
               Add Document
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'document_list' %}">
-              <span data-feather="archive"></span>
-              All Documents
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'groups' %}">
               <span data-feather="users"></span>

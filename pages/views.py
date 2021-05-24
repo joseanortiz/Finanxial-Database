@@ -271,6 +271,14 @@ def group(request):
             submitted = True
     return render(request, "add_group.html", {'form': form, 'submitted':submitted})
 
+def group_search(request, group_id):
+    group = ClientGroup.objects.get(pk=group_id)
+    clients = Client.objects.filter(
+    client_group__contains=group
+    )
+    return render(request, 'group_q.html', {'clients':clients})
+
+
 def edit_document(request, list_id, file_id):
     if request.method == 'POST':
 

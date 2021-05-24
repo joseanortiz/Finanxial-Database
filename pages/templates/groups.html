@@ -14,6 +14,7 @@
       <tr>
         <th>Group Name</th>
         <th> </th>
+        <th> </th>
       </tr>
     </thead>
   {% for items in all_items %}
@@ -21,6 +22,9 @@
       <tbody>
         <tr>
           <td>{{ items.client_group }}</td>
+          <form class="d-flex" method=POST action="">
+          <td><center><a class="btn btn-outline-dark" href="{% url 'group_search' items.id %}" role="button">Select</a></center></td>
+          </form>
           <td><center><a class="btn btn-outline-danger" href="{% url 'group_delete' items.id %}" role="button">Delete</a></center></td>
 
         </tr>
@@ -28,6 +32,7 @@
 
 
    {% endfor %}
+   <td></td>
    <td></td>
    <td><center><a class="btn btn-outline-primary" href="{% url 'group' %}" role="button">Add Group</a></center></td>
    </tbody>

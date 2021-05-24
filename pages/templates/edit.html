@@ -39,20 +39,6 @@
       </div>
       <div class="row align-items-center">
         <div class="col">
-          <label for="disabledTextInput" class="form-label">Contact Name</label>
-          <input type="text" name="contact_name" class="form-control" value="{{ item.contact_name}}" maxlength="200" required id="id_contact_name">
-        </div>
-        <div class="col">
-          <label for="disabledTextInput" class="form-label">Contact Number</label>
-          <input type="text" name="contact_number" class="form-control" value="{{ item.contact_number }}" maxlength="200" required id="id_contact_number">
-        </div>
-        <div class="col">
-          <label for="disabledTextInput" class="form-label">Contact Email</label>
-          <input type="email" name="contact_email" class="form-control" value="{{ item.contact_email }}" maxlength="200" required id="id_contact_email">
-        </div>
-      </div>
-      <div class="row align-items-end">
-        <div class="col">
           <label for="disabledTextInput" class="form-label">Project Manager</label>
           <input type="text" name="project_manager" class="form-control" value="{{ item.project_manager }}" maxlength="200" required id="id_project_manager">
         </div>
@@ -63,6 +49,20 @@
         <div class="col">
           <label for="disabledTextInput" class="form-label">Bank Accounts</label>
           <input type="text" name="bank_accounts" class="form-control" value="{{ item.bank_accounts }}" maxlength="200" required id="id_bank_accounts">
+        </div>
+      </div>
+      <div class="row align-items-end">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Name</label>
+          <input type="text" name="contact_name" class="form-control" value="{{ item.contact_name}}" maxlength="200" required id="id_contact_name">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Number</label>
+          <input type="text" name="contact_number" class="form-control" value="{{ item.contact_number }}" maxlength="200" required id="id_contact_number">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Email</label>
+          <input type="email" name="contact_email" class="form-control" value="{{ item.contact_email }}" maxlength="200" required id="id_contact_email">
         </div>
       </div>
       <div class="row">
@@ -86,6 +86,7 @@
 
   </fieldset>
 <br/><br/>
+
 <div class="d-grid gap-2 col-2 mx-auto">
 <button class="btn btn-primary" type="submit">Edit</button>
 </div>

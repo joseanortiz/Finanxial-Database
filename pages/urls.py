@@ -26,6 +26,7 @@ urlpatterns = [
     path('documents/', views.document_list, name='document_list'),
     path('add-document/', views.document, name='document'),
     path('groups/', views.groups, name='groups'),
+    path('group-search/<group_id>/', views.group_search, name='group_search'),
     path('groups/add-group/', views.group, name='group'),
     path('group-delete/<group_id>/', views.group_delete, name='group_delete'),
     path('edit-client/<list_id>/view-document/<file_id>/', views.edit_document, name='edit_document'),

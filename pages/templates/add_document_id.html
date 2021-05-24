@@ -41,20 +41,6 @@
         </div>
         <div class="row align-items-center">
           <div class="col">
-            <label for="disabledTextInput" class="form-label">Contact Name</label>
-            <input type="text" name="contact_name" class="form-control" value="{{ documents.contact_name}}" maxlength="200" required id="id_contact_name">
-          </div>
-          <div class="col">
-            <label for="disabledTextInput" class="form-label">Contact Number</label>
-            <input type="text" name="contact_number" class="form-control" value="{{ documents.contact_number }}" maxlength="200" required id="id_contact_number">
-          </div>
-          <div class="col">
-            <label for="disabledTextInput" class="form-label">Contact Email</label>
-            <input type="email" name="contact_email" class="form-control" value="{{ documents.contact_email }}" maxlength="200" required id="id_contact_email">
-          </div>
-        </div>
-        <div class="row align-items-end">
-          <div class="col">
             <label for="disabledTextInput" class="form-label">Project Manager</label>
             <input type="text" name="project_manager" class="form-control" value="{{ documents.project_manager }}" maxlength="200" required id="id_project_manager">
           </div>
@@ -65,6 +51,20 @@
           <div class="col">
             <label for="disabledTextInput" class="form-label">Bank Accounts</label>
             <input type="text" name="bank_accounts" class="form-control" value="{{ documents.bank_accounts }}" maxlength="200" required id="id_bank_accounts">
+          </div>
+        </div>
+        <div class="row align-items-end">
+          <div class="col">
+            <label for="disabledTextInput" class="form-label">Contact Name</label>
+            <input type="text" name="contact_name" class="form-control" value="{{ documents.contact_name}}" maxlength="200" required id="id_contact_name">
+          </div>
+          <div class="col">
+            <label for="disabledTextInput" class="form-label">Contact Number</label>
+            <input type="text" name="contact_number" class="form-control" value="{{ documents.contact_number }}" maxlength="200" required id="id_contact_number">
+          </div>
+          <div class="col">
+            <label for="disabledTextInput" class="form-label">Contact Email</label>
+            <input type="email" name="contact_email" class="form-control" value="{{ documents.contact_email }}" maxlength="200" required id="id_contact_email">
           </div>
         </div>
         <div class="row">
@@ -119,25 +119,29 @@
           <table class="table table-bordered table-hover">
             <thead>
               <tr>
+                <th>Description</th>
                 <th>File Type</th>
                 <th>Bank</th>
-                <th>Description</th>
                 <th>Status</th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
             {% for items in document_list %}
               <tbody>
                 <tr>
+                  <td>{{ items.description }}</td>
                   <td>{{ items.document_type }}</td>
                   <td>{{ items.bank }}</td>
-                  <td>{{ items.description }}</td>
-                  <td><div class="form-check">
-                        <center><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></center>
-                        <label class="form-check-label" for="flexCheckDefault">
+                  <td>{% if items.completed == True %}
+                        Recieved
+                        <td></td>
+                      {% else %}
+                        Missing
+                        <td><center><a class="btn btn-outline-info" href="{% url 'edit_document' documents.id items.id %}" role="button">Send Request</a></center></td>
+                      {% endif %}
 
-                        </label>
-                      </div>
+
                   <td><center><a class="btn btn-outline-dark" href="{% url 'edit_document' documents.id items.id %}" role="button">Select</a></center></td>
 
                 </tr>

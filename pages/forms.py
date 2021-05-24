@@ -33,15 +33,17 @@ class ClientForm(forms.ModelForm):
 
 
 class FileForm(forms.ModelForm):
+    completed = forms.BooleanField(required=False)
     class Meta:
         model = File
-        fields = ['client', 'document_type', 'bank', 'description', 'document']
+        fields = ['client', 'document_type', 'bank', 'description', 'document', 'completed']
         labels = {
         'client': '',
         'document_type': '',
         'bank': '',
         'description': '',
         'document': '',
+        'completed': '',
         }
         widgets = {
             'client': forms.Select(attrs={'class':'form-control', 'placeholder':'Client'}),
@@ -49,7 +51,6 @@ class FileForm(forms.ModelForm):
             'bank': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Bank'}),
             'description': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Document Description'}),
             'document': forms.FileInput(attrs={'class':'form-control', 'placeholder':'Add File:'}),
-
         }
 
 class ClientGroupForm(forms.ModelForm):

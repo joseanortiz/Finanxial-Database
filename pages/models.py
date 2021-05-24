@@ -28,10 +28,11 @@ class Client(models.Model):
 
 class File(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    document_type = models.CharField(max_length=200)
-    bank = models.CharField(max_length=200)
-    description = models.CharField(max_length=200)
+    document_type = models.CharField(max_length=200, blank=True)
+    bank = models.CharField(max_length=200, blank=True)
+    description = models.CharField(max_length=200, blank=True)
     document = models.FileField(upload_to='files/', blank=True)
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.description
