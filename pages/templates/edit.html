@@ -3,6 +3,7 @@
 {% block title %} {{ item.client_name }} | Finanxial {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
 <form class="form-inline" method="POST">
@@ -109,5 +110,6 @@ margin-bottom: 5px;
 ">
 </form>
 <br/><br/>
-
+{% else %}
+{% endif %}
 {% endblock %}

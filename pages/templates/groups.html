@@ -3,6 +3,7 @@
 {% block title %} Groups | Finanxial {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
   <br/><br/>
   <h2 class="text-muted">Groups</h2>
@@ -22,9 +23,7 @@
       <tbody>
         <tr>
           <td>{{ items.client_group }}</td>
-          <form class="d-flex" method=POST action="">
           <td><center><a class="btn btn-outline-dark" href="{% url 'group_search' items.id %}" role="button">Select</a></center></td>
-          </form>
           <td><center><a class="btn btn-outline-danger" href="{% url 'group_delete' items.id %}" role="button">Delete</a></center></td>
 
         </tr>
@@ -40,5 +39,7 @@
 </div>
 {%endif%}
 
+{% else %}
+{% endif %}
 
 {% endblock %}

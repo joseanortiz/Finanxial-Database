@@ -4,6 +4,7 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
   <br/><br/>
   <h2  class="text-muted">Client Records</h2>
@@ -57,4 +58,6 @@
 
 {% endif %}
 
+{% else %}
+{% endif %}
 {% endblock %}

@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 
 #Log In Page:
-def login(request):
-    return render(request, "login.html", {})
+#def login(request):
+    #return render(request, "login.html", {})
 
 #Initial Search Page:
 def search(request):

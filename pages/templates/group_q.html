@@ -4,7 +4,7 @@
 {% block title %} Search Results | Finanxial {% endblock %}
 
 {% block content %}
-
+{% if user.is_authenticated %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
   <br/>
   <h2 class="text-muted">Search Results</h2>
@@ -51,8 +51,9 @@
            {% endfor %}
          </table>
        </div>
-  
 
+{% else %}
+{% endif %}
 
 
 {% endblock %}

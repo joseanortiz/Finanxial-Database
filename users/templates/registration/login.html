@@ -1,4 +1,5 @@
 
+
 {% load static %}
 <!doctype html>
 <html lang="en">
@@ -8,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.82.0">
-    <title>Finanxial  · Log In</title>
+    <title>Finanxial | Log In</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 
@@ -42,35 +43,31 @@
 <main class="form-signin">
   <form method="POST">
     {% csrf_token %}
+    
     <img class="mb-4" src="{% static 'images/finanxial_logo_full.webp' %}" alt="" width="340">
     <h1 class="h3 mb-3 fw-normal">Sign In</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
+      <input type="text" class="form-control" placeholder="Username" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+      <label for="id_username">Username</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
+      <input type="password" class="form-control"name="password" autocomplete="current-password" required id="id_password" placeholder="Password">
+      <label for="id_password">Password</label>
     </div>
 
     <p style="
     margin-bottom: 5px;
 ">
-    <button class="w-100 btn btn-lg btn-primary" type="submit" href="/search/">Sign In</button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign In</button>
     </p>
 
-      <p style="
-      margin-bottom: 5px;
-  ">
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Forgot Password?</button>
-      </p>
 
       <p style="
       margin-bottom: 5px;
   ">
-      <a class="w-100 btn btn-lg btn-primary btn" href="users/register/" role="button">Register User</a>
-      </p>
+    <a class="w-100 btn btn-lg btn-primary btn" href="{% url 'register' %}" role="button">Register User</a>
+  </p>
 
 
   </form>
