@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Search | Client Name | Finanxial {% endblock %}
+{% block title %} Search | Group | Finanxial {% endblock %}
 
 {% block content %}
 
@@ -14,15 +14,14 @@
   <h2 for="exampleDataList" class="form-label text-muted">Search for Client</h2>
 
   <div class="input-group input-group-lg mb-3" >
-    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Client Name</button>
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Group</button>
     <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'searchCN' %}">Client Name</a></li>
       <li><a class="dropdown-item" href="{% url 'searchTI' %}">Tax ID</a></li>
       <li><a class="dropdown-item" href="{% url 'searchPM' %}">Project Manager</a></li>
-      <li><a class="dropdown-item" href="{% url 'searchGroup' %}">Group</a></li>
     </ul>
-
     <div class=" input-group-lg col-lg-5">
-    <form class="d-flex" method=POST action="{% url 'searchCN_q' %}">
+    <form class="d-flex" method=POST action="{% url 'searchGroup_q' %}">
       {% csrf_token %}
 
 

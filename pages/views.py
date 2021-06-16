@@ -8,11 +8,36 @@ from django.http import HttpResponseRedirect
 #def login(request):
     #return render(request, "login.html", {})
 
+#dashboard
+def dashboard(request):
+    return render(request, "dashboard.html", {})
+
 #Initial Search Page:
 def search(request):
     all_items = Client.objects.all
     groups = ClientGroup.objects.all
     return render(request, "search.html", {'all_items': all_items, 'groups':groups})
+
+#Search Page Given Group Selection
+def searchGroup(request):
+    all_items = Client.objects.all
+    groups = ClientGroup.objects.all
+    return render(request, "searchGroup.html", {'all_items': all_items, 'groups':groups})
+
+#Search Page Results Given Group Selection
+def searchGroup_q(request):
+    if request.method == "POST":
+        groups = ClientGroup.objects.all
+        searched = request.POST['searched']
+        #searched_lower = request.POST['searched']
+        searched = searched
+        #searched_lower = searched_lower.lower()
+        clients = Client.objects.filter(
+        client_group__icontains=searched
+        )
+        return render(request, 'client_group_q.html', {'searched':searched, 'clients':clients, 'groups':groups})
+    else:
+        return render(request, 'client_group_q.html', {})
 
 #Search Page given Client Name selection:
 def searchCN(request):
@@ -30,11 +55,12 @@ def searchCN_id(request, group_id):
 #Client Name Results:
 def searchCN_q(request):
     if request.method == "POST":
+        groups = ClientGroup.objects.all
         searched = request.POST['searched']
         clients = Client.objects.filter(
-        client_name__contains=searched
+        client_name__icontains=searched
         )
-        return render(request, 'client_name_q.html', {'searched':searched, 'clients':clients})
+        return render(request, 'client_name_q.html', {'searched':searched, 'clients':clients, 'groups':groups})
     else:
         return render(request, 'client_name_q.html', {})
 
@@ -43,9 +69,9 @@ def searchCN_q_id(request, group_id):
         searched = request.POST['searched']
         group = ClientGroup.objects.get(pk=group_id)
         clients = Client.objects.filter(
-        client_name__contains=searched
+        client_name__icontains=searched
         ).filter(
-        client_group__contains=group
+        client_group__icontains=group
         )
         return render(request, 'client_name_q_id.html', {'searched':searched, 'clients':clients})
     else:
@@ -69,11 +95,12 @@ def searchTI_id(request, group_id):
 #Tax ID Results:
 def searchTI_q(request):
     if request.method == "POST":
+        groups = ClientGroup.objects.all
         searched = request.POST['searched']
         clients = Client.objects.filter(
-        tax_id__contains=searched
+        tax_id__icontains=searched
         )
-        return render(request, 'tax_id_q.html', {'searched':searched, 'clients':clients})
+        return render(request, 'tax_id_q.html', {'searched':searched, 'clients':clients, 'groups':groups})
     else:
         return render(request, 'tax_id_q.html', {})
 
@@ -82,9 +109,9 @@ def searchTI_q_id(request, group_id):
         searched = request.POST['searched']
         group = ClientGroup.objects.get(pk=group_id)
         clients = Client.objects.filter(
-        tax_id__contains=searched
+        tax_id__icontains=searched
         ).filter(
-        client_group__contains=group
+        client_group__icontains=group
         )
         return render(request, 'tax_id_q_id.html', {'searched':searched, 'clients':clients})
     else:
@@ -106,11 +133,12 @@ def searchPM_id(request, group_id):
 #Project Manager Results:
 def searchPM_q(request):
     if request.method == "POST":
+        groups = ClientGroup.objects.all
         searched = request.POST['searched']
         clients = Client.objects.filter(
-        project_manager__contains=searched
+        project_manager__icontains=searched
         )
-        return render(request, 'pm_q.html', {'searched':searched, 'clients':clients})
+        return render(request, 'pm_q.html', {'searched':searched, 'clients':clients, 'groups':groups})
     else:
         return render(request, 'pm_q.html', {})
 
@@ -119,9 +147,9 @@ def searchPM_q_id(request, group_id):
         searched = request.POST['searched']
         group = ClientGroup.objects.get(pk=group_id)
         clients = Client.objects.filter(
-        project_manager__contains=searched
+        project_manager__icontains=searched
         ).filter(
-        client_group__contains=group
+        client_group__icontains=group
         )
         return render(request, 'pm_q_id.html', {'searched':searched, 'clients':clients})
     else:
@@ -173,6 +201,25 @@ def edit(request, list_id):
         item = Client.objects.get(pk=list_id)
         return render(request, "edit.html", {'item': item, 'form': form, 'groups':groups})
 
+#duplicate client
+def duplicate_client(request, list_id):
+    submitted = False
+    if request.method == 'POST': #check for input
+        form = ClientForm(request.POST)           #save user input
+
+        if form.is_valid():                        #check if input is valid
+            form.save()                            #save input to our database
+            messages.info(request, request.POST['client_name']+ ' has been added to the Records!')
+            return HttpResponseRedirect('/search?submitted=True')
+
+    else:
+        item = Client.objects.get(pk=list_id)
+        groups = ClientGroup.objects.all
+        ct_message = 'Choose Client Type'
+        form = ClientForm(initial = {'client_type': ct_message})
+        if 'submitted' in request.GET:
+            submitted = True
+    return render(request, "duplicate_client.html", {'form': form, 'submitted':submitted, 'groups':groups, 'item':item,})
 #Add document given id
 def document_id(request, list_id):
     if request.method == 'POST':
@@ -274,7 +321,7 @@ def group(request):
 def group_search(request, group_id):
     group = ClientGroup.objects.get(pk=group_id)
     clients = Client.objects.filter(
-    client_group__contains=group
+    client_group__icontains=group
     )
     return render(request, 'group_q.html', {'clients':clients})
 

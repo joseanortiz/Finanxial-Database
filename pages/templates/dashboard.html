@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard | Finanxial {% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <br/><br/>
+<STYLE>A {text-decoration: none;} </STYLE>
+<div class="row">
+<div class="col">
+<div class="card" style="width: 20rem;">
+  <div class="card-body">
+    <h5 class="card-title">Total Documents</h5>
+    <h2 class="card-subtitle mb-2 text-muted">50</h2>
+    <a href="{% url 'document_list' %}" class="card-link">View Documents</a>
+    <a href="{% url 'document' %}" class="card-link">Add a Document</a>
+  </div>
+</div>
+</div>
+
+<div class="col">
+<div class="card" style="width: 20rem;">
+  <div class="card-body">
+    <h5 class="card-title">Documents Received</h5>
+    <h2 class="card-subtitle mb-2 text-muted">30</h2>
+    <a href="#" class="card-link">View Received Documents</a>
+  </div>
+</div>
+</div>
+
+<div class="col">
+<div class="card" style="width: 20rem;">
+  <div class="card-body">
+    <h5 class="card-title">Documents Missing</h5>
+    <h2 class="card-subtitle mb-2 text-muted">20</h2>
+    <a href="#" class="card-link">View Missing Documnts</a>
+  </div>
+</div>
+</div>
+
+<div class="col">
+<div class="card" style="width: 20rem;">
+  <div class="card-body">
+    <h5 class="card-title">Pending Requests</h5>
+    <h2 class="card-subtitle mb-2 text-muted">11</h2>
+    <a href="#" class="card-link">View Requests</a>
+  </div>
+</div>
+</div>
+</div>
+
+<br/><br/>
+
+<div class="container">
+  <div class="row">
+  <table class="table table-fixed table-hover">
+    <thead class="table-primary">
+        <tr>
+          <th scope="col">Client</th>
+          <th scope="col">Total Documents</th>
+          <th scope="col">Documents Received</th>
+          <th scope="col">Pending Requests</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Law Ofiices Wolf Popper</th>
+          <td>10</td>
+          <td>7</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th>Sky III LLC</th>
+          <td>11</td>
+          <td>9</td>
+          <td>2</td>
+
+        </tr>
+        <tr>
+          <th>PCC International LLC</th>
+          <td>9</td>
+          <td>4</td>
+          <td>5</td>
+
+        </tr>
+        <tr>
+          <th>e3 Consulting</th>
+          <td>12</td>
+          <td>6</td>
+          <td>6</td>
+
+        </tr>
+        <tr>
+          <th>Heroku</th>
+          <td>8</td>
+          <td>5</td>
+          <td>3</td>
+
+        </tr>
+        <tr>
+          <th>Law Ofiices Wolf Popper</th>
+          <td>10</td>
+          <td>7</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <th>Sky III LLC</th>
+          <td>11</td>
+          <td>9</td>
+          <td>2</td>
+
+        </tr>
+        <tr>
+          <th>PCC International LLC</th>
+          <td>9</td>
+          <td>4</td>
+          <td>5</td>
+
+        </tr>
+        <tr>
+          <th>e3 Consulting</th>
+          <td>12</td>
+          <td>6</td>
+          <td>6</td>
+
+        </tr>
+        <tr>
+          <th>Heroku</th>
+          <td>8</td>
+          <td>5</td>
+          <td>3</td>
+
+        </tr>
+
+      </tbody>
+  </table>
+</div>
+</div>
+<div class="row">
+  <div class="col">
+  </div>
+  <div class="col">
+  </div>
+  <div class="col">
+  </div>
+  <div class="col">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="true" href="#">Records</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Groups</a>
+        </li>
+
+      </ul>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Recently Viewed Records:</h5>
+      <p class="card-text"></p>
+      <p style="
+      margin-bottom: 5px;
+  ">
+      <a href="#" class="btn btn-outline-primary btn-sm">Sky III LLC</a><br/>
+      <p style="
+      margin-bottom: 5px;
+  ">
+      <a href="#" class="btn btn-outline-primary btn-sm">PCC International LLC</a><br/>
+      <p style="
+      margin-bottom: 5px;
+  ">
+      <a href="#" class="btn btn-outline-primary btn-sm">e3 Consulting</a><br/>
+    </div>
+  </div>
+{% else %}
+
+{% endif %}
+
+
+{% endblock %}

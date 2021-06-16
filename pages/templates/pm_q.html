@@ -26,6 +26,7 @@
                 <th>Project Manager</th>
                 <th>Tax ID</th>
                 <th>Bank Accounts</th>
+                <th>Groups</th>
                 <th></th>
               </tr>
             </thead>
@@ -42,7 +43,14 @@
                   <td>{{ client.project_manager }}</td>
                   <td>{{ client.tax_id }}</td>
                   <td>{{ client.bank_accounts }}</td>
-                  <td><center><a class="btn btn-outline-secondary" href="{% url 'edit' client.id %}" role="button">Select</a></center></td>
+                  <td>{{ client.client_group }}</td>
+                  {% for group in groups %}
+                    {% if group.client_group == client.client_group %}
+                      <td><a class="btn btn-sm btn-outline-secondary" href="{% url 'group_search' group.id %}" role="button">{{ client.client_group }}</a></td>
+                    {% else %}
+                    {% endif%}
+                  {% endfor %}
+                  <td><center><a class="btn btn-sm btn-outline-secondary" href="{% url 'edit' client.id %}" role="button">Select</a></center></td>
 
                 </tr>
 

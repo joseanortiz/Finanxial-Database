@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %} Add Client | Finanxial {% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <br/><br/>
+
+    <h2 class="text-muted">Add Client</h2>
+
+
+  {% if submitted %}
+  Successful
+  {% else %}
+
+  <form method=POST>
+    {% csrf_token %}
+   <div class="mb-3">
+   <input type="text" name="client_name" class="form-control" placeholder="Client Name" maxlength="200" required id="id_client_name" value="{{ item.client_name }}">
+   </div>
+   <div class="mb-3">
+   <input type="text" name="contact_name" class="form-control" placeholder="Contact Name" maxlength="200" required id="id_contact_name" value="{{ item.contact_name }}">
+   </div>
+   <div class="mb-3">
+   <input type="text" name="contact_number" class="form-control" placeholder="Contact Number" maxlength="200" required id="id_contact_number" value="{{ item.contact_number }}">
+   </div>
+   <div class="mb-3">
+   <input type="email" name="contact_email" class="form-control" placeholder="Contact Email" maxlength="200" required id="id_contact_email" value="{{ item.contact_email }}">
+   </div>
+   <div class="mb-3">
+   <input type="text" name="industry_type" class="form-control" placeholder="Industry Type" maxlength="200" required id="id_industry_type" value="{{ item.industry_type }}">
+   </div>
+   <div class="mb-3">
+   <input type="text" name="project_manager" class="form-control" placeholder="Project Manager" maxlength="200" required id="id_project_manager" value="{{ item.project_manager }}">
+   </div>
+   <div class="mb-3">
+   <input type="text" name="tax_id" class="form-control" placeholder="Tax ID" maxlength="200" required id="id_tax_id" value="{{ item.tax_id }}">
+   </div>
+   <div class="mb-3">
+   <input type="text" name="bank_accounts" class="form-control" placeholder="Bank Accounts" maxlength="200" required id="id_bank_accounts" value="{{ item.bank_accounts }}">
+   </div>
+    <div class="mb-3">
+    <select name="client_type" class="form-control" required id="id_client_type">
+      <option value="{{ item.client_type }}">{{ item.client_type }}</option>
+
+      <option value="Data Entry">Data Entry</option>
+
+      <option value="Reconcile and Review">Reconcile and Review</option>
+
+      <option value="Review">Review</option>
+    </select>
+    </div>
+    <div class="mb-3">
+    <select name="client_group" class="form-control" required id="id_client_group">
+      <option value="{{ item.client_group }}">{{ item.client_group }}</option>
+      {% for group in groups %}
+      <option value="{{ group.client_group }}">{{ group.client_group }}</option>
+      {% endfor %}
+    </select>
+    </div>
+
+
+    <center><input type="submit" value="Submit" class="btn btn-outline-primary"></center>
+
+  </form>
+  {% endif %}
+<br/>
+<br/>
+<br/>
+<br/>
+
+{% else %}
+{% endif %}
+{% endblock %}

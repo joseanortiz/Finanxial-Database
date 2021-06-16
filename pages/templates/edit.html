@@ -4,9 +4,11 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+{% load static %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
-<form class="form-inline" method="POST">
+<script src="{%static 'js/editScript.js' %}"></script>
+<form class="form-inline" method="POST" onsubmit="return submit(this);">
   {% csrf_token %}
 
 
@@ -89,7 +91,7 @@
 <br/><br/>
 
 <div class="d-grid gap-2 col-2 mx-auto">
-<button class="btn btn-primary" type="submit">Edit</button>
+<button class="btn edit btn-primary" type="submit" id="edit">Edit</button>
 </div>
 <p style="
 margin-bottom: 5px;
@@ -108,7 +110,16 @@ margin-bottom: 5px;
 <p style="
 margin-bottom: 5px;
 ">
+
+<div class="d-grid gap-2 col-2 mx-auto"">
+  <a class="btn btn-outline-secondary" href="{% url 'duplicate_client' item.id %}" role="button">Duplicate Client</a>
+</div>
+<p style="
+margin-bottom: 5px;
+">
 </form>
+
+
 <br/><br/>
 {% else %}
 {% endif %}
