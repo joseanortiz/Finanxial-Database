@@ -4,6 +4,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+      <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -43,7 +44,7 @@
 <main class="form-signin">
   <form method="POST">
     {% csrf_token %}
-    
+
     <img class="mb-4" src="{% static 'images/finanxial_logo_full.webp' %}" alt="" width="340">
     <h1 class="h3 mb-3 fw-normal">Sign In</h1>
 
