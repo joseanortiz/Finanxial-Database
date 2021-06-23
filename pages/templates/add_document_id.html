@@ -103,6 +103,13 @@
   ">
 
   <div class="d-grid gap-2 col-2 mx-auto"">
+    <a class="btn btn-outline-secondary" href="{% url 'duplicate_client' documents.id %}" role="button">Duplicate Client</a>
+  </div>
+  <p style="
+  margin-bottom: 5px;
+  ">
+
+  <div class="d-grid gap-2 col-2 mx-auto"">
     <a class="btn btn-outline-secondary" href="{% url 'document_id' documents.id %}" role="button">View Documents</a>
   </div>
   <p style="
@@ -138,7 +145,7 @@
                         <td></td>
                       {% else %}
                         Missing
-                        <td><center><a class="btn btn-outline-info" href="{% url 'edit_document' documents.id items.id %}" role="button">Send Request</a></center></td>
+                        <td><center><a class="btn btn-outline-info" href="{% url 'send_request' documents.id items.id %}" role="button">Send Request</a></center></td>
                       {% endif %}
 
 
@@ -156,6 +163,7 @@
   <div>
     <center><a class="btn btn-outline-secondary" href="{% url 'document_id_add' documents.id %}" role="button">Add Document</a></center>
   </div>
+
 <br/>
 <br/>
 <br/>

@@ -3,6 +3,9 @@ from .models import Client , File, ClientGroup
 from .forms import ClientForm, FileForm, ClientGroupForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+import smtplib
+from email.message import EmailMessage
+from django.views.decorators.debug import sensitive_variables
 
 #Log In Page:
 #def login(request):
@@ -45,6 +48,7 @@ def searchCN(request):
     groups = ClientGroup.objects.all
     return render(request, "client_name.html", {'all_items': all_items, 'groups':groups, })
 
+
 def searchCN_id(request, group_id):
     all_items = Client.objects.all
     groups = ClientGroup.objects.all
@@ -64,19 +68,19 @@ def searchCN_q(request):
     else:
         return render(request, 'client_name_q.html', {})
 
-def searchCN_q_id(request, group_id):
-    if request.method == "POST":
-        searched = request.POST['searched']
-        group = ClientGroup.objects.get(pk=group_id)
-        clients = Client.objects.filter(
-        client_name__icontains=searched
-        ).filter(
-        client_group__icontains=group
-        )
-        return render(request, 'client_name_q_id.html', {'searched':searched, 'clients':clients})
-    else:
-        return render(request, 'client_name_q_id.html', {})
-
+# def searchCN_q_id(request, group_id):
+#     if request.method == "POST":
+#         searched = request.POST['searched']
+#         group = ClientGroup.objects.get(pk=group_id)
+#         clients = Client.objects.filter(
+#         client_name__icontains=searched
+#         ).filter(
+#         client_group__icontains=group
+#         )
+#         return render(request, 'client_name_q_id.html', {'searched':searched, 'clients':clients})
+#     else:
+#         return render(request, 'client_name_q_id.html', {})
+#
 
 
 #Search Page given Tax ID selection:
@@ -104,18 +108,18 @@ def searchTI_q(request):
     else:
         return render(request, 'tax_id_q.html', {})
 
-def searchTI_q_id(request, group_id):
-    if request.method == "POST":
-        searched = request.POST['searched']
-        group = ClientGroup.objects.get(pk=group_id)
-        clients = Client.objects.filter(
-        tax_id__icontains=searched
-        ).filter(
-        client_group__icontains=group
-        )
-        return render(request, 'tax_id_q_id.html', {'searched':searched, 'clients':clients})
-    else:
-        return render(request, 'tax_id_q_id.html', {})
+# def searchTI_q_id(request, group_id):
+#     if request.method == "POST":
+#         searched = request.POST['searched']
+#         group = ClientGroup.objects.get(pk=group_id)
+#         clients = Client.objects.filter(
+#         tax_id__icontains=searched
+#         ).filter(
+#         client_group__icontains=group
+#         )
+#         return render(request, 'tax_id_q_id.html', {'searched':searched, 'clients':clients})
+#     else:
+#         return render(request, 'tax_id_q_id.html', {})
 
 #Search Page given Project Manager selection:
 def searchPM(request):
@@ -142,18 +146,18 @@ def searchPM_q(request):
     else:
         return render(request, 'pm_q.html', {})
 
-def searchPM_q_id(request, group_id):
-    if request.method == "POST":
-        searched = request.POST['searched']
-        group = ClientGroup.objects.get(pk=group_id)
-        clients = Client.objects.filter(
-        project_manager__icontains=searched
-        ).filter(
-        client_group__icontains=group
-        )
-        return render(request, 'pm_q_id.html', {'searched':searched, 'clients':clients})
-    else:
-        return render(request, 'pm_q_id.html', {})
+# def searchPM_q_id(request, group_id):
+#     if request.method == "POST":
+#         searched = request.POST['searched']
+#         group = ClientGroup.objects.get(pk=group_id)
+#         clients = Client.objects.filter(
+#         project_manager__icontains=searched
+#         ).filter(
+#         client_group__icontains=group
+#         )
+#         return render(request, 'pm_q_id.html', {'searched':searched, 'clients':clients})
+#     else:
+#         return render(request, 'pm_q_id.html', {})
 
 #All records in the database:
 def records(request):
@@ -220,6 +224,7 @@ def duplicate_client(request, list_id):
         if 'submitted' in request.GET:
             submitted = True
     return render(request, "duplicate_client.html", {'form': form, 'submitted':submitted, 'groups':groups, 'item':item,})
+
 #Add document given id
 def document_id(request, list_id):
     if request.method == 'POST':
@@ -242,6 +247,7 @@ def document_id(request, list_id):
 
     return render(request, 'add_document_id.html', context)
 
+#Document Page w Files
 def document_id_add(request, list_id):
     if request.method == 'POST':
         documents = Client.objects.get(pk=list_id)
@@ -272,7 +278,27 @@ def delete_file(request, list_id, file_id):
     item.delete()
     return redirect('document_id', list_id)
 
-#add document:
+#Send Email Request
+@sensitive_variables('EMAIL_ADDRESS', 'EMAIL_PASSWORD')
+def send_request(request, list_id, file_id):
+    clients = Client.objects.get(pk=list_id)
+    email = clients.contact_email
+    EMAIL_ADDRESS = 'joseandev@gmail.com'
+    EMAIL_PASSWORD = 'bpuuzuftybfubqfg'
+
+    msg = EmailMessage()
+    msg['Subject'] = 'Requesting Doc Information'
+    msg['From'] = EMAIL_ADDRESS
+    msg['To'] = email
+    msg.set_content('Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non sollicitudin est. Nam at velit sollicitudin, varius enim nec, ultricies massa. Donec cursus mauris eget ante molestie efficitur. Vivamus porta rutrum urna. Nunc ultricies erat eu elementum ullamcorper. In eu neque non tortor congue bibendum eget non sem. Donec maximus velit sed tellus rutrum lacinia. Phasellus lacus diam, tempus at nunc at, elementum ullamcorper leo. Sed luctus, ligula eget auctor vestibulum, orci purus sagittis turpis, non euismod sem leo consectetur augue. Praesent pretium vehicula luctus. Sed quis massa at lacus condimentum faucibus.')
+
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        smtp.send_message(msg)
+
+    return redirect('document_id', list_id)
+
+#add document
 def document(request):
      if request.method == 'POST':
         form = FileForm(request.POST,request.FILES)
@@ -294,15 +320,18 @@ def document_list(request):
 
     return render(request, 'documents.html', context)
 
+#All Groups
 def groups(request):
     all_items = ClientGroup.objects.all
     return render(request, 'groups.html', {'all_items':all_items, })
 
+#Delete Group
 def group_delete(request, group_id):
     item = ClientGroup.objects.get(pk=group_id)
     item.delete()
     return redirect('groups')
 
+#Add Group
 def group(request):
     submitted = False
     if request.method == 'POST':                   #check for input
@@ -318,6 +347,7 @@ def group(request):
             submitted = True
     return render(request, "add_group.html", {'form': form, 'submitted':submitted})
 
+#Search Group (from group page)
 def group_search(request, group_id):
     group = ClientGroup.objects.get(pk=group_id)
     clients = Client.objects.filter(
@@ -326,6 +356,7 @@ def group_search(request, group_id):
     return render(request, 'group_q.html', {'clients':clients})
 
 
+#Edit Clients Document
 def edit_document(request, list_id, file_id):
     if request.method == 'POST':
 

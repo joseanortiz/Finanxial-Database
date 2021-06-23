@@ -147,6 +147,5 @@ django_heroku.settings(locals())
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
 LOGIN_REDIRECT_URL = 'search'
 LOGOUT_REDIRECT_URL = 'login'

@@ -105,19 +105,21 @@ margin-bottom: 5px;
 ">
 
 <div class="d-grid gap-2 col-2 mx-auto"">
-  <a class="btn btn-outline-secondary" href="{% url 'document_id' item.id %}" role="button">View Documents</a>
+  <a class="btn btn-outline-secondary" href="{% url 'duplicate_client' item.id %}" role="button">Duplicate Client</a>
 </div>
 <p style="
 margin-bottom: 5px;
 ">
 
 <div class="d-grid gap-2 col-2 mx-auto"">
-  <a class="btn btn-outline-secondary" href="{% url 'duplicate_client' item.id %}" role="button">Duplicate Client</a>
+  <a class="btn btn-outline-secondary" href="{% url 'document_id' item.id %}" role="button">View Documents</a>
 </div>
 <p style="
 margin-bottom: 5px;
 ">
+
 </form>
+
 
 
 <br/><br/>
