@@ -1,15 +1,29 @@
 from django.shortcuts import render, redirect
-from .models import Client , File, ClientGroup
-from .forms import ClientForm, FileForm, ClientGroupForm
+from .models import Client , File, ClientGroup, Employee, Industrie, Contact
+from .forms import ClientForm, FileForm, ClientGroupForm, EmployeeForm, IndustryForm, ContactForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 import smtplib
 from email.message import EmailMessage
 from django.views.decorators.debug import sensitive_variables
+from django.contrib.auth import authenticate, login
+from django.urls import reverse_lazy
+
+
+#def filter_search(request, searched):
+
 
 #Log In Page:
-#def login(request):
-    #return render(request, "login.html", {})
+def login(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return reverse_lazy('login')
+    else:
+        return render(request, "login.html", {})
+
 
 #dashboard
 def dashboard(request):
@@ -64,9 +78,74 @@ def searchCN_q(request):
         clients = Client.objects.filter(
         client_name__icontains=searched
         )
+
         return render(request, 'client_name_q.html', {'searched':searched, 'clients':clients, 'groups':groups})
     else:
         return render(request, 'client_name_q.html', {})
+
+def searchCN_filter(request):
+    if request.method == "POST":
+        groups = ClientGroup.objects.all
+        filter = request.POST
+        filter_str = str(filter)
+        filter_len = len(filter_str)
+        filter_list = filter_str[9:filter_len]
+        clients = Client.objects.filter(
+        bank_accounts__icontains=''
+        )
+
+        try:
+            if filter['accountingCheck'] == 'on':
+                check = 'funciona'
+                clients =   clients.filter(
+                accounting__icontains='True'
+                )
+        except:
+            print("continue")
+        try:
+            if filter['taxesCheck']:
+                check = 'funciona'
+                clients = clients.filter(
+                taxes__icontains='True'
+                )
+        except:
+            print("continue")
+        try:
+            if filter['auditsCheck']:
+                check = 'funciona'
+                clients =  clients.filter(
+                audits__icontains='True'
+                )
+        except:
+            print("continue")
+        try:
+            if filter['consultingCheck']:
+                check = 'funciona'
+                clients = clients.filter(
+                consulting__icontains='True'
+                )
+        except:
+            print("continue")
+        try:
+            if filter['investmentCheck']:
+                consultingCheck = 'funciona'
+                clients = clients.filter(
+                investment__icontains='True'
+                )
+        except:
+            print("continue")
+        try:
+            if filter['planningCheck']:
+                check = 'funciona'
+                clients = clients.filter(
+                planning__icontains='True'
+                )
+        except:
+            print("continue")
+
+        return render(request, 'client_name_filter.html', {'filter':filter, 'clients':clients, 'check':check, 'filter_list':filter_list, 'groups':groups})
+    else:
+        return render(request, 'client_name_filter.html', {})
 
 # def searchCN_q_id(request, group_id):
 #     if request.method == "POST":
@@ -167,25 +246,47 @@ def records(request):
 
 #Add Client Page:
 def client(request):
-    submitted = False
-
     if request.method == 'POST':
-
-                       #check for input
-        form = ClientForm(request.POST)           #save user input
-
-        if form.is_valid():                        #check if input is valid
-            form.save()                            #save input to our database
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            form.save()
             messages.info(request, request.POST['client_name']+ ' has been added to the Records!')
             return HttpResponseRedirect('/search?submitted=True')
+        else:
+            messages.error(request, 'Invalid Phone Number (Must be xxx-xxx-xxxx or xxxxxxxxxx)', extra_tags='add_client')
+            return redirect('client')
 
     else:
+        industries = Industrie.objects.all
+        clients = Client.objects.all
+        managers = Employee.objects.all
         groups = ClientGroup.objects.all
         ct_message = 'Choose Client Type'
         form = ClientForm(initial = {'client_type': ct_message})
-        if 'submitted' in request.GET:
-            submitted = True
-    return render(request, "addclient.html", {'form': form, 'submitted':submitted, 'groups':groups})
+
+    return render(request, "addclient.html", {'form': form, 'groups':groups, 'managers':managers, 'clients':clients, 'industries':industries})
+
+# #Add Client Page:
+# def client_1(request):
+#     if request.method == 'POST':
+#         form = ClientForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.info(request, request.POST['client_name']+ ' has been added to the Records!')
+#             return HttpResponseRedirect('/search?submitted=True')
+#         else:
+#             messages.error(request, 'Invalid Phone Number (Must be xxx-xxx-xxxx or xxxxxxxxxx)', extra_tags='add_client')
+#             return redirect('client_1')
+#
+#     else:
+#         industries = Industrie.objects.all
+#         clients = Client.objects.all
+#         managers = Employee.objects.all
+#         groups = ClientGroup.objects.all
+#         ct_message = 'Choose Client Type'
+#         form = ClientForm(initial = {'client_type': ct_message})
+#
+#     return render(request, "addclient_1.html", {'form': form, 'groups':groups, 'managers':managers, 'clients':clients, 'industries':industries})
 
 #edit client
 def edit(request, list_id):
@@ -205,6 +306,32 @@ def edit(request, list_id):
         item = Client.objects.get(pk=list_id)
         return render(request, "edit.html", {'item': item, 'form': form, 'groups':groups})
 
+#edit client +1
+def edit_1(request, list_id):
+    if request.method == 'POST':
+        item = Client.objects.get(pk=list_id)
+
+        form = ClientForm(request.POST or None, instance=item)
+
+        if form.is_valid():
+            form.save()
+            messages.info(request, request.POST['client_name']+ ' record has been edited!')
+            return redirect('search')
+
+    else:
+        form = ClientForm()
+        groups = ClientGroup.objects.all
+        item = Client.objects.get(pk=list_id)
+        return render(request, "edit_1.html", {'item': item, 'form': form, 'groups':groups})
+
+#Client page
+def client_page(request, list_id):
+    form = ClientForm()
+    contact = Contact.objects.filter(client_name=list_id)
+    groups = ClientGroup.objects.all
+    item = Client.objects.get(pk=list_id)
+    return render(request, "client_page.html", {'item': item, 'form': form, 'groups':groups, 'contacts':contact})
+
 #duplicate client
 def duplicate_client(request, list_id):
     submitted = False
@@ -217,13 +344,16 @@ def duplicate_client(request, list_id):
             return HttpResponseRedirect('/search?submitted=True')
 
     else:
+        industries = Industrie.objects.all
+        clients = Client.objects.all
+        managers = Employee.objects.all
         item = Client.objects.get(pk=list_id)
         groups = ClientGroup.objects.all
         ct_message = 'Choose Client Type'
         form = ClientForm(initial = {'client_type': ct_message})
         if 'submitted' in request.GET:
             submitted = True
-    return render(request, "duplicate_client.html", {'form': form, 'submitted':submitted, 'groups':groups, 'item':item,})
+    return render(request, "duplicate_client.html", {'form': form, 'submitted':submitted, 'groups':groups, 'item':item, 'clients':clients, 'industries':industries, 'managers':managers})
 
 #Add document given id
 def document_id(request, list_id):
@@ -373,3 +503,37 @@ def edit_document(request, list_id, file_id):
         form = FileForm()
 
     return render(request, 'edit_document.html', {'form':form,  'document':document, 'client':client, })
+
+#add contact form
+def add_contact(request, list_id, contact_id):
+    if request.method == 'POST':
+        item = Contact.objects.get(pk=contact_id)
+        form = ContactForm(request.POST or None, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('client_page', list_id)
+    else:
+        client = Client.objects.get(pk=list_id)
+        contact = Contact.objects.filter(client_name=list_id)
+        form = ContactForm()
+    return render(request, 'add_contact.html', {'form':form, 'client':client, 'contacts':contact})
+
+#add contact form
+def add_contact_item(request, list_id):
+        if request.method == 'POST':
+
+            form = ContactForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('client_page', list_id)
+        else:
+            client = Client.objects.get(pk=list_id)
+            contact = Contact.objects.filter(client_name=list_id)
+            form = ContactForm()
+        return render(request, 'add_contact_item.html', {'form':form, 'client':client, 'contacts':contact})
+
+#View Contacts
+def view_contact(request, list_id):
+    client = Client.objects.get(pk=list_id)
+    contact = Contact.objects.filter(client_name=list_id)
+    return render(request, 'view_contacts.html', {'client':client, 'contacts':contact,})

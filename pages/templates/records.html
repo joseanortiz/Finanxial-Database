@@ -25,7 +25,6 @@
               <th>Industry Type</th>
               <th>Project Manager</th>
               <th>Tax ID</th>
-              <th>Bank Accounts</th>
               <th>Client Group</th>
               <th> </th>
             </tr>
@@ -42,9 +41,8 @@
                 <td>{{ items.industry_type }}</td>
                 <td>{{ items.project_manager }}</td>
                 <td>{{ items.tax_id }}</td>
-                <td>{{ items.bank_accounts }}</td>
                 <td>{{ items.client_group }}</td>
-                <td><center><a class="btn btn-outline-secondary" href="{% url 'edit' items.id %}" role="button">Select</a></center></td>
+                <td><center><a class="btn btn-outline-secondary" href="{% url 'client_page' items.id %}" role="button">Select</a></center></td>
 
               </tr>
 

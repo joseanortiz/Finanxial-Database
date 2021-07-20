@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pages',
     'users',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,7 @@ django_heroku.settings(locals())
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+PHONENUMBER_DEFAULT_REGION = 'US'
 
 LOGIN_REDIRECT_URL = 'search'
 LOGOUT_REDIRECT_URL = 'login'

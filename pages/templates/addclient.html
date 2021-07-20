@@ -7,13 +7,18 @@
 {% if user.is_authenticated %}
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
   <br/><br/>
+  {%for message in messages %}
+     {%if "add_client" in message.tags %}
+     <div class="alert alert-danger" role="alert">
+       {{ message }}
+       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+     </div>
+     {%endif%}
+  {%endfor%}
 
     <h2 class="text-muted">Add Client</h2>
 
 
-  {% if submitted %}
-  Successful
-  {% else %}
   <form method=POST>
     {% csrf_token %}
     <div class="mb-3">
@@ -23,22 +28,50 @@
     {{ form.contact_name }}
     </div>
     <div class="mb-3">
-    {{ form.contact_number }}
-    </div>
-    <div class="mb-3">
     {{ form.contact_email }}
     </div>
     <div class="mb-3">
-    {{ form.industry_type }}
-    </div>
-    <div class="mb-3">
-    {{ form.project_manager }}
+     <input type="tel" name="contact_number" class="form-control" placeholder="Contact Number" maxlength="200" required id="id_contact_number">
     </div>
     <div class="mb-3">
     {{ form.tax_id }}
     </div>
     <div class="mb-3">
-    {{ form.bank_accounts }}
+    <select name="industry_type" class="form-control" required id="id_industry_type">
+      <option value="" class="text-muted">Industry</option>
+      {% for industry in industries %}
+      <option value="{{ industry.industry_type_drop }}">{{ industry.industry_type_drop }}</option>
+      {% endfor %}
+      <option value="Other">Other</option>
+    </select>
+    </div>
+    <div class="mb-3">
+    <select name="project_manager" class="form-control" required id="id_project_manager">
+      <option value="" class="text-muted">Manager</option>
+      {% for manager in managers %}
+      <option value="{{ manager.manager }}">{{ manager.manager }}</option>
+      {% endfor %}
+    </select>
+    </div>
+    <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Services</label>
+    <br/>
+    <input type="checkbox" class="btn-check" id="accounting" name="accounting" autocomplete="off">
+    <label class="btn btn-outline-primary" for="accounting">Accounting</label>
+    <input type="checkbox" class="btn-check" id="taxes" name="taxes" autocomplete="off">
+    <label class="btn btn-outline-primary" for="taxes">Taxes</label>
+    <input type="checkbox" class="btn-check" id="audits" name="audits" autocomplete="off">
+    <label class="btn btn-outline-primary" for="audits">Audits</label>
+    <input type="checkbox" class="btn-check" id="tax_consulting" name="tax_consulting" autocomplete="off">
+    <label class="btn btn-outline-primary" for="tax_consulting">Tax Consulting</label>
+    <input type="checkbox" class="btn-check" id="consulting" name="consulting" autocomplete="off">
+    <label class="btn btn-outline-primary" for="consulting">Consulting</label>
+    <input type="checkbox" class="btn-check" id="investment" name="investment" autocomplete="off">
+    <label class="btn btn-outline-primary" for="investment">Investment</label>
+    <input type="checkbox" class="btn-check" id="planning" name="planning" autocomplete="off">
+    <label class="btn btn-outline-primary" for="planning">Financial Planning</label>
+    <br/>
+    <br/>
     </div>
     <div class="mb-3">
     <select name="client_type" class="form-control" required id="id_client_type">
@@ -61,15 +94,15 @@
     </div>
 
 
-    <center><input type="submit" value="Submit" class="btn btn-outline-primary"></center>
-
+    <center><button type="submit" value="Submit" class="btn btn-outline-primary">Submit</button></center>
   </form>
-  {% endif %}
 <br/>
 <br/>
 <br/>
 <br/>
+
 
 {% else %}
 {% endif %}
+
 {% endblock %}

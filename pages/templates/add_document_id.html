@@ -19,16 +19,16 @@
         <div class="row align-items-start">
           <div class="col">
             <label for="disabledTextInput" class="form-label">Client Name</label>
-            <input type="text" name="client_name" class="form-control" value="{{ documents.client_name }}" maxlength="200" required id="id_client_name">
+            <input type="text" name="client_name" class="form-control" value="{{ documents.client_name }}" maxlength="200" required id="id_client_name" disabled>
           </div>
           <div class="col">
             <label for="disabledTextInput" class="form-label">Industry Type</label>
-            <input type="text" name="industry_type" class="form-control" value="{{ documents.industry_type }}" maxlength="200" required id="id_industry_type">
+            <input type="text" name="industry_type" class="form-control" value="{{ documents.industry_type }}" maxlength="200" required id="id_industry_type" disabled>
           </div>
 
           <div class="col">
             <label for="disabledTextInput" class="form-label">Client Type</label>
-            <select name="client_type" class="form-control" required id="id_client_type">
+            <select name="client_type" class="form-control" required id="id_client_type" disabled>
               <option value="{{ documents.client_type }}">{{ documents.client_type }}</option>
 
               <option value="Data Entry">Data Entry</option>
@@ -42,43 +42,102 @@
         <div class="row align-items-center">
           <div class="col">
             <label for="disabledTextInput" class="form-label">Project Manager</label>
-            <input type="text" name="project_manager" class="form-control" value="{{ documents.project_manager }}" maxlength="200" required id="id_project_manager">
+            <input type="text" name="project_manager" class="form-control" value="{{ documents.project_manager }}" maxlength="200" required id="id_project_manager" disabled>
           </div>
           <div class="col">
             <label for="disabledTextInput" class="form-label">Tax ID</label>
-            <input type="text" name="tax_id" class="form-control" value="{{ documents.tax_id }}" maxlength="200" required id="id_tax_id">
+            <input type="text" name="tax_id" class="form-control" value="{{ documents.tax_id }}" maxlength="200" required id="id_tax_id" disabled>
           </div>
           <div class="col">
-            <label for="disabledTextInput" class="form-label">Bank Accounts</label>
-            <input type="text" name="bank_accounts" class="form-control" value="{{ documents.bank_accounts }}" maxlength="200" required id="id_bank_accounts">
+            <label for="disabledTextInput" class="form-label">Client Group</label>
+            <select name="client_group" class="form-control" required id="id_client_group" disabled>
+              <option value="{{ documents.client_group }}">{{ documents.client_group }}</option>
+              {% for group in groups %}
+              <option value="{{ group.client_group }}">{{ group.client_group }}</option>
+              {% endfor %}
+            </select>
           </div>
         </div>
         <div class="row align-items-end">
           <div class="col">
             <label for="disabledTextInput" class="form-label">Contact Name</label>
-            <input type="text" name="contact_name" class="form-control" value="{{ documents.contact_name}}" maxlength="200" required id="id_contact_name">
+            <input type="text" name="contact_name" class="form-control" value="{{ documents.contact_name}}" maxlength="200" required id="id_contact_name" disabled>
           </div>
           <div class="col">
             <label for="disabledTextInput" class="form-label">Contact Number</label>
-            <input type="text" name="contact_number" class="form-control" value="{{ documents.contact_number }}" maxlength="200" required id="id_contact_number">
+            <input type="text" name="contact_number" class="form-control" value="{{ documents.contact_number }}" maxlength="200" required id="id_contact_number" disabled>
           </div>
           <div class="col">
             <label for="disabledTextInput" class="form-label">Contact Email</label>
-            <input type="email" name="contact_email" class="form-control" value="{{ documents.contact_email }}" maxlength="200" required id="id_contact_email">
+            <input type="email" name="contact_email" class="form-control" value="{{ documents.contact_email }}" maxlength="200" required id="id_contact_email" disabled>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+
+          </div>
+          <div class="col-2">
+            <a class="btn btn-outline-secondary btn-sm" href="{% url 'edit_1' documents.id %}" role="button">Add Contact</a>
+          </div>
+          <div class="col">
+
           </div>
         </div>
         <div class="row">
           <div class="col">
 
           </div>
-          <div class="col">
-          <label for="disabledTextInput" class="form-label">Client Group</label>
-          <select name="client_group" class="form-control" required id="id_client_group">
-            <option value="{{ documents.client_group }}">{{ documents.client_group }}</option>
-            {% for group in groups %}
-            <option value="{{ group.client_group }}">{{ group.client_group }}</option>
-            {% endfor %}
-          </select>
+          <div class="col-6">
+            <label for="exampleFormControlInput1" class="form-label">Services</label><br>
+            {% if documents.accounting %}
+              <input type="checkbox" class="btn-check" id="accounting" name="accounting" autocomplete="off" checked disabled>
+              <label class="btn btn-outline-primary" for="accounting">Accounting</label>
+            {% else %}
+              <input type="checkbox" class="btn-check" id="accounting" name="accounting" autocomplete="off" disabled>
+              <label class="btn btn-outline-primary" for="accounting">Accounting</label>
+            {% endif %}
+
+            {% if documents.taxes %}
+            <input type="checkbox" class="btn-check" id="taxes" name="taxes" autocomplete="off" checked disabled>
+            <label class="btn btn-outline-primary" for="taxes">Taxes</label>
+            {% else %}
+            <input type="checkbox" class="btn-check" id="taxes" name="taxes" autocomplete="off" disabled>
+            <label class="btn btn-outline-primary" for="taxes">Taxes</label>
+            {% endif %}
+
+            {% if documents.audits %}
+            <input type="checkbox" class="btn-check" id="audits" name="audits" autocomplete="off" checked disabled>
+            <label class="btn btn-outline-primary" for="audits">Audits</label>
+            {% else %}
+            <input type="checkbox" class="btn-check" id="audits" name="audits" autocomplete="off" disabled>
+            <label class="btn btn-outline-primary" for="audits">Audits</label>
+            {% endif %}
+
+            {% if documents.consulting %}
+            <input type="checkbox" class="btn-check" id="consulting" name="consulting" autocomplete="off" checked disabled>
+            <label class="btn btn-outline-primary" for="consulting">Consulting</label>
+            {% else %}
+            <input type="checkbox" class="btn-check" id="consulting" name="consulting" autocomplete="off" disabled>
+            <label class="btn btn-outline-primary" for="consulting">Consulting</label>
+            {% endif %}
+
+            {% if documents.investment %}
+            <input type="checkbox" class="btn-check" id="investment" name="investment" autocomplete="off" checked disabled>
+            <label class="btn btn-outline-primary" for="investment">Investment</label>
+            {% else %}
+            <input type="checkbox" class="btn-check" id="investment" name="investment" autocomplete="off" disabled>
+            <label class="btn btn-outline-primary" for="investment">Investment</label>
+            {% endif %}
+
+            {% if documents.planning %}
+            <input type="checkbox" class="btn-check" id="planning" name="planning" autocomplete="off" checked disabled>
+            <label class="btn btn-outline-primary" for="planning">Financial Planning</label>
+            {% else %}
+            <input type="checkbox" class="btn-check" id="planning" name="planning" autocomplete="off" disabled>
+            <label class="btn btn-outline-primary" for="planning">Financial Planning</label>
+            {% endif %}
+
           </div>
           <div class="col">
 
@@ -89,32 +148,26 @@
     </fieldset>
   <br/><br/>
 
-  <div class="d-grid gap-2 col-2 mx-auto"">
-  <button class="btn btn-primary" type="submit">Edit</button>
-  </div>
-  <p style="
-  margin-bottom: 5px;
-">
-    <div class="d-grid gap-2 col-2 mx-auto"">
-      <a class="btn btn-danger" href="{% url 'delete' documents.id %}" role="button">Delete</a>
+  <div class="row">
+    <div class="col">
+
     </div>
-    <p style="
-    margin-bottom: 5px;
-  ">
+    <div class="col-4">
+        <a class="btn btn-primary btn" href="{% url 'edit' documents.id %}" role="button">Edit</a>
 
-  <div class="d-grid gap-2 col-2 mx-auto"">
-    <a class="btn btn-outline-secondary" href="{% url 'duplicate_client' documents.id %}" role="button">Duplicate Client</a>
-  </div>
-  <p style="
-  margin-bottom: 5px;
-  ">
 
-  <div class="d-grid gap-2 col-2 mx-auto"">
-    <a class="btn btn-outline-secondary" href="{% url 'document_id' documents.id %}" role="button">View Documents</a>
+        <a class="btn btn-danger btn" href="{% url 'delete' documents.id %}" role="button">Delete</a>
+
+
+      <a class="btn btn-outline-secondary" href="{% url 'duplicate_client' documents.id %}" role="button">Duplicate Client</a>
+
+
+      <a class="btn btn-outline-secondary" href="{% url 'document_id' documents.id %}" role="button">View Documents</a>
+    </div>
+    <div class="col">
+
+    </div>
   </div>
-  <p style="
-  margin-bottom: 5px;
-  ">
   </form>
   <br/><br/>
   <left><h4 class="text-muted">Documents</h4></left>
@@ -128,7 +181,6 @@
               <tr>
                 <th>Description</th>
                 <th>File Type</th>
-                <th>Bank</th>
                 <th>Status</th>
                 <th></th>
                 <th></th>
@@ -139,7 +191,6 @@
                 <tr>
                   <td>{{ items.description }}</td>
                   <td>{{ items.document_type }}</td>
-                  <td>{{ items.bank }}</td>
                   <td>{% if items.completed == True %}
                         Received
                         <td></td>

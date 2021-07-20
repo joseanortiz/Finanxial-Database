@@ -30,17 +30,75 @@
    <input type="email" name="contact_email" class="form-control" placeholder="Contact Email" maxlength="200" required id="id_contact_email" value="{{ item.contact_email }}">
    </div>
    <div class="mb-3">
-   <input type="text" name="industry_type" class="form-control" placeholder="Industry Type" maxlength="200" required id="id_industry_type" value="{{ item.industry_type }}">
-   </div>
-   <div class="mb-3">
-   <input type="text" name="project_manager" class="form-control" placeholder="Project Manager" maxlength="200" required id="id_project_manager" value="{{ item.project_manager }}">
-   </div>
-   <div class="mb-3">
    <input type="text" name="tax_id" class="form-control" placeholder="Tax ID" maxlength="200" required id="id_tax_id" value="{{ item.tax_id }}">
    </div>
    <div class="mb-3">
-   <input type="text" name="bank_accounts" class="form-control" placeholder="Bank Accounts" maxlength="200" required id="id_bank_accounts" value="{{ item.bank_accounts }}">
+   <select name="industry_type" class="form-control" required id="id_industry_type">
+     <option value="{{ item.industry_type }}" class="text-muted">{{ item.industry_type }}</option>
+     {% for industry in industries %}
+     <option value="{{industry.industry_type}}">{{industry.industry_type }}</option>
+     {% endfor %}
+     <option value="Other">Other</option>
+   </select>
    </div>
+   <div class="mb-3">
+   <select name="project_manager" class="form-control" required id="id_project_manager">
+     <option value="{{ item.project_manager }}" class="text-muted">{{ item.project_manager }}</option>
+     {% for manager in managers %}
+     <option value="{{ manager.manager }}">{{ manager.manager }}</option>
+     {% endfor %}
+   </select>
+   </div>
+   <label for="exampleFormControlInput1" class="form-label">Services</label><br>
+   {% if item.accounting %}
+     <input type="checkbox" class="btn-check" id="accounting" name="accounting" autocomplete="off" checked >
+     <label class="btn btn-outline-primary" for="accounting">Accounting</label>
+   {% else %}
+     <input type="checkbox" class="btn-check" id="accounting" name="accounting" autocomplete="off" >
+     <label class="btn btn-outline-primary" for="accounting">Accounting</label>
+   {% endif %}
+
+   {% if item.taxes %}
+   <input type="checkbox" class="btn-check" id="taxes" name="taxes" autocomplete="off" checked >
+   <label class="btn btn-outline-primary" for="taxes">Taxes</label>
+   {% else %}
+   <input type="checkbox" class="btn-check" id="taxes" name="taxes" autocomplete="off" >
+   <label class="btn btn-outline-primary" for="taxes">Taxes</label>
+   {% endif %}
+
+   {% if item.audits %}
+   <input type="checkbox" class="btn-check" id="audits" name="audits" autocomplete="off" checked >
+   <label class="btn btn-outline-primary" for="audits">Audits</label>
+   {% else %}
+   <input type="checkbox" class="btn-check" id="audits" name="audits" autocomplete="off" >
+   <label class="btn btn-outline-primary" for="audits">Audits</label>
+   {% endif %}
+
+   {% if item.consulting %}
+   <input type="checkbox" class="btn-check" id="consulting" name="consulting" autocomplete="off" checked >
+   <label class="btn btn-outline-primary" for="consulting">Consulting</label>
+   {% else %}
+   <input type="checkbox" class="btn-check" id="consulting" name="consulting" autocomplete="off" >
+   <label class="btn btn-outline-primary" for="consulting">Consulting</label>
+   {% endif %}
+
+   {% if item.investment %}
+   <input type="checkbox" class="btn-check" id="investment" name="investment" autocomplete="off" checked >
+   <label class="btn btn-outline-primary" for="investment">Investment</label>
+   {% else %}
+   <input type="checkbox" class="btn-check" id="investment" name="investment" autocomplete="off" >
+   <label class="btn btn-outline-primary" for="investment">Investment</label>
+   {% endif %}
+
+   {% if item.planning %}
+   <input type="checkbox" class="btn-check" id="planning" name="planning" autocomplete="off" checked >
+   <label class="btn btn-outline-primary" for="planning">Financial Planning</label>
+   {% else %}
+   <input type="checkbox" class="btn-check" id="planning" name="planning" autocomplete="off" >
+   <label class="btn btn-outline-primary" for="planning">Financial Planning</label>
+   {% endif %}
+   <br>
+   <br>
     <div class="mb-3">
     <select name="client_type" class="form-control" required id="id_client_type">
       <option value="{{ item.client_type }}">{{ item.client_type }}</option>

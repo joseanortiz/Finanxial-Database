@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ item.client_name }} | Finanxial {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% load static %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+<script src="{%static 'js/editScript.js' %}"></script>
+<form class="form-inline" method="POST" onsubmit="return submit(this);">
+  {% csrf_token %}
+
+
+  <fieldset>
+    <br/><br/>
+    <left><h2 class="text-muted">‎‏‏{{ item.client_name }}'s Record</h2></left>
+    <br/><br/>
+    <div class="container">
+      <div class="row align-items-start">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Client Name</label>
+          <input type="text" name="client_name" class="form-control" value="{{ item.client_name }}" maxlength="200" required id="id_client_name">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Industry Type</label>
+          <input type="text" name="industry_type" class="form-control" value="{{ item.industry_type }}" maxlength="200" required id="id_industry_type">
+        </div>
+
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Client Type</label>
+          <select name="client_type" class="form-control" required id="id_client_type">
+            <option value="{{ item.client_type }}">{{ item.client_type }}</option>
+
+            <option value="Data Entry">Data Entry</option>
+
+            <option value="Reconcile and Review">Reconcile and Review</option>
+
+            <option value="Review">Review</option>
+          </select>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Project Manager</label>
+          <input type="text" name="project_manager" class="form-control" value="{{ item.project_manager }}" maxlength="200" required id="id_project_manager">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Tax ID</label>
+          <input type="text" name="tax_id" class="form-control" value="{{ item.tax_id }}" maxlength="200" required id="id_tax_id">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Client Group</label>
+          <select name="client_group" class="form-control" required id="id_client_group">
+            <option value="{{ item.client_group }}">{{ item.client_group }}</option>
+            {% for group in groups %}
+            <option value="{{ group.client_group }}">{{ group.client_group }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="row align-items-end">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Name</label>
+          <input type="text" name="contact_name" class="form-control" value="{{ item.contact_name}}" maxlength="200" required id="id_contact_name">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Number</label>
+          <input type="text" name="contact_number" class="form-control" value="{{ item.contact_number }}" maxlength="200" required id="id_contact_number">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Email</label>
+          <input type="email" name="contact_email" class="form-control" value="{{ item.contact_email }}" maxlength="200" required id="id_contact_email">
+        </div>
+      </div>
+      <div class="row align-items-end">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Name</label>
+          <input type="text" name="contact_name" class="form-control" value="{{ item.contact_name_1 }}" maxlength="200" required id="id_contact_name">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Number</label>
+          <input type="text" name="contact_number" class="form-control" value="{{ item.contact_number_1 }}" maxlength="200" required id="id_contact_number">
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Email</label>
+          <input type="email" name="contact_email" class="form-control" value="{{ item.contact_email_1 }}" maxlength="200" required id="id_contact_email">
+        </div>
+      </div>
+
+
+      <br>
+      <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col-8">
+          <label for="exampleFormControlInput1" class="form-label">Services</label><br>
+          {% if item.accounting %}
+            <input type="checkbox" class="btn-check" id="accounting" name="accounting" autocomplete="off" checked >
+            <label class="btn btn-outline-primary" for="accounting">Accounting</label>
+          {% else %}
+            <input type="checkbox" class="btn-check" id="accounting" name="accounting" autocomplete="off" >
+            <label class="btn btn-outline-primary" for="accounting">Accounting</label>
+          {% endif %}
+
+          {% if item.taxes %}
+          <input type="checkbox" class="btn-check" id="taxes" name="taxes" autocomplete="off" checked >
+          <label class="btn btn-outline-primary" for="taxes">Taxes</label>
+          {% else %}
+          <input type="checkbox" class="btn-check" id="taxes" name="taxes" autocomplete="off" >
+          <label class="btn btn-outline-primary" for="taxes">Taxes</label>
+          {% endif %}
+
+          {% if item.audits %}
+          <input type="checkbox" class="btn-check" id="audits" name="audits" autocomplete="off" checked >
+          <label class="btn btn-outline-primary" for="audits">Audits</label>
+          {% else %}
+          <input type="checkbox" class="btn-check" id="audits" name="audits" autocomplete="off" >
+          <label class="btn btn-outline-primary" for="audits">Audits</label>
+          {% endif %}
+
+          {% if item.tax_consulting %}
+          <input type="checkbox" class="btn-check" id="tax_consulting" name="tax_consulting" autocomplete="off" checked >
+          <label class="btn btn-outline-primary" for="tax_consulting">Tax Consulting</label>
+          {% else %}
+          <input type="checkbox" class="btn-check" id="tax_consulting" name="tax_consulting" autocomplete="off" >
+          <label class="btn btn-outline-primary" for="tax_consulting">Tax Consulting</label>
+          {% endif %}
+
+          {% if item.consulting %}
+          <input type="checkbox" class="btn-check" id="consulting" name="consulting" autocomplete="off" checked >
+          <label class="btn btn-outline-primary" for="consulting">Consulting</label>
+          {% else %}
+          <input type="checkbox" class="btn-check" id="consulting" name="consulting" autocomplete="off" >
+          <label class="btn btn-outline-primary" for="consulting">Consulting</label>
+          {% endif %}
+
+          {% if item.investment %}
+          <input type="checkbox" class="btn-check" id="investment" name="investment" autocomplete="off" checked >
+          <label class="btn btn-outline-primary" for="investment">Investment</label>
+          {% else %}
+          <input type="checkbox" class="btn-check" id="investment" name="investment" autocomplete="off" >
+          <label class="btn btn-outline-primary" for="investment">Investment</label>
+          {% endif %}
+
+          {% if item.planning %}
+          <input type="checkbox" class="btn-check" id="planning" name="planning" autocomplete="off" checked >
+          <label class="btn btn-outline-primary" for="planning">Financial Planning</label>
+          {% else %}
+          <input type="checkbox" class="btn-check" id="planning" name="planning" autocomplete="off" >
+          <label class="btn btn-outline-primary" for="planning">Financial Planning</label>
+          {% endif %}
+        </div>
+        <div class="col">
+
+        </div>
+
+      </div>
+    </div>
+
+
+  </fieldset>
+<br/><br/>
+
+<div class="row">
+  <div class="col">
+
+  </div>
+  <div class="col-4">
+      <button class="btn edit btn-primary" type="submit" id="edit">Submit</button>
+
+
+      <a class="btn btn-danger btn" href="{% url 'delete' item.id %}" role="button">Delete</a>
+
+
+    <a class="btn btn-outline-secondary" href="{% url 'duplicate_client' item.id %}" role="button">Duplicate Client</a>
+
+
+    <a class="btn btn-outline-secondary" href="{% url 'document_id' item.id %}" role="button">View Documents</a>
+  </div>
+  <div class="col">
+
+  </div>
+</div>
+
+
+</form>
+
+
+
+<br/><br/>
+{% else %}
+{% endif %}
+{% endblock %}

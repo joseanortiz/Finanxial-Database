@@ -13,22 +13,17 @@
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
   {% if searched %}
+  
 
         {% if searched %}
         <div class="table-responsive">
           <table class="table table-bordered table-hover">
             <thead>
               <tr>
-                <th>Client Name</th>
-                <th>Contact Name</th>
-                <th>Contact Number</th>
-                <th>Contact Email</th>
-                <th>Client Type</th>
-                <th>Industry Type</th>
-                <th>Project Manager</th>
-                <th>Tax ID</th>
-                <th>Bank Accounts</th>
-                <th>Groups</th>
+                <th>Client Name‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎</th>
+                <th>Project Manager‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‎</th>
+                <th>Tax ID‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎</th>
+                <th>Groups‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎ ‎‏‏‎</th>
                 <th></th>
               </tr>
             </thead>
@@ -37,21 +32,15 @@
               <tbody>
                 <tr>
                   <td>{{ client.client_name }}</td>
-                  <td>{{ client.contact_name }}</td>
-                  <td>{{ client.contact_number }}</td>
-                  <td>{{ client.contact_email }}</td>
-                  <td>{{ client.client_type }}</td>
-                  <td>{{ client.industry_type }}</td>
                   <td>{{ client.project_manager }}</td>
                   <td>{{ client.tax_id }}</td>
-                  <td>{{ client.bank_accounts }}</td>
                   {% for group in groups %}
                     {% if group.client_group == client.client_group %}
                       <td><a class="btn btn-sm btn-outline-secondary" href="{% url 'group_search' group.id %}" role="button">{{ client.client_group }}</a></td>
                     {% else %}
                     {% endif%}
                   {% endfor %}
-                  <td><center><a class="btn btn-sm btn-outline-secondary" href="{% url 'edit' client.id %}" role="button">Select</a></center></td>
+                  <td><center><a class="btn btn-sm btn-outline-secondary" href="{% url 'client_page' client.id %}" role="button">Select</a></center></td>
 
                 </tr>
 

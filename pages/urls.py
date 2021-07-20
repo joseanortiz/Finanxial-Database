@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
+    path('', views.login, name='login'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('search/', views.search, name='search'),
     path('search/client-name/', views.searchCN, name='searchCN'),
@@ -10,6 +11,7 @@ urlpatterns = [
     path('search/group/search-results/', views.searchGroup_q, name='searchGroup_q'),
     path('search-id/client-name-id/<group_id>/', views.searchCN_id, name='searchCN_id'),
     path('search/client-name/search-results/', views.searchCN_q, name='searchCN_q'),
+    path('search/client-name/search-results/filter/', views.searchCN_filter, name='searchCN_filter'),
     #path('search-id/client-name-id/<group_id>/search-results-id/', views.searchCN_q_id, name='searchCN_q_id'),
     path('search/tax-ID/', views.searchTI, name='searchTI'),
     path('search-id/tax-ID-id/<group_id>/', views.searchTI_id, name='searchTI_id'),
@@ -20,8 +22,11 @@ urlpatterns = [
     path('search/project-manager/search-results/', views.searchPM_q, name='searchPM_q'),
     #path('search-id/project-manager-id/<group_id>/search-results-id', views.searchPM_q_id, name='searchPM_q_id'),
     path('add-client/', views.client, name='client'),
+    # path('add-client+1/', views.client_1, name='client_1'),
     path('duplicate-client/<list_id>/', views.duplicate_client, name='duplicate_client'),
+    path('client-page/<list_id>', views.client_page, name='client_page'),
     path('edit-client/<list_id>', views.edit, name='edit'),
+    path('edit-client+1/<list_id>', views.edit_1, name='edit_1'),
     path('edit-client/<list_id>/view-document/', views.document_id, name='document_id'),
     path('edit-client/<list_id>/view-document/add/', views.document_id_add, name='document_id_add'),
     path('delete/<list_id>', views.delete, name='delete'),
@@ -35,5 +40,7 @@ urlpatterns = [
     path('edit-client/<list_id>/view-document/<file_id>/', views.edit_document, name='edit_document'),
     path('edit-client/<list_id>/view-document/<file_id>/delete/', views.delete_file, name='delete_file'),
     path('edit-client/<list_id>/view-document/<file_id>/send-request', views.send_request, name='send_request'),
-
+    path('add_contact/<list_id>/<contact_id>', views.add_contact, name='add_contact'),
+    path('add_contact/<list_id>/', views.add_contact_item, name='add_contact_item'),
+    path('view_contact/<list_id>/', views.view_contact, name='view_contact'),
 ]

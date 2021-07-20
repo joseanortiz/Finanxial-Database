@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ documents.client_name }} Contacts | Finanxial {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <br/><br/>
+<h2 class="text-muted">{{ client.client_name }} Contacts</h2>
+<br>
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col">
+      <label for="disabledTextInput" class="form-label">Primary Contact Name</label>
+      <input type="text" name="contact_name" class="form-control" value="{{ client.contact_name }}" maxlength="200" disabled>
+    </div>
+    <div class="col">
+      <label for="disabledTextInput" class="form-label">Primary Contact Number</label>
+      <input type="text" name="contact_number" class="form-control" value="{{ client.contact_number }}" maxlength="200" disabled>
+    </div>
+
+    <div class="col">
+      <label for="disabledTextInput" class="form-label">Primary Contact Email</label>
+      <input type="text" name="client_email" class="form-control" value="{{ client.contact_email }}" maxlength="200"  disabled>
+    </div>
+  </div>
+  {% for contact in contacts %}
+      {% if contact.c_name_1 %}
+      <div class="row align-items-center">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Name</label>
+          <input type="text" name="c_name_1" class="form-control" value="{{ contact.c_name_1 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Number</label>
+          <input type="text" name="c_num_1" class="form-control" value="{{ contact.c_num_1 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Email</label>
+          <input type="text" name="c_email_1" class="form-control" value="{{ contact.c_email_1 }}" maxlength="200" disabled>
+        </div>
+      </div>
+      {% else %}
+      {% endif %}
+      {% if contact.c_name_2 %}
+      <div class="row align-items-end">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Name</label>
+          <input type="text" name="c_name_2" class="form-control" value="{{ contact.c_name_2 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Number</label>
+          <input type="text" name="c_num_2" class="form-control" value="{{ contact.c_num_2 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Email</label>
+          <input type="text" name="c_email_2" class="form-control" value="{{ contact.c_email_2 }}" maxlength="200" disabled>
+        </div>
+        </div>
+        {% else %}
+        {% endif %}
+        {% if contact.c_name_3 %}
+        <div class="row align-items-center">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Name</label>
+          <input type="text" name="c_name_3" class="form-control" value="{{ contact.c_name_3 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Number</label>
+          <input type="text" name="c_num_3" class="form-control" value="{{ contact.c_num_3 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Email</label>
+          <input type="text" name="c_email_3" class="form-control" value="{{ contact.c_email_3 }}" maxlength="200" disabled>
+        </div>
+      </div>
+      {% else %}
+      {% endif %}
+      {% if contact.c_name_4 %}
+      <div class="row align-items-end">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Name</label>
+          <input type="text" name="c_name_4" class="form-control" value="{{ contact.c_name_4 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Number</label>
+          <input type="text" name="c_num_4" class="form-control" value="{{ contact.c_num_4 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Email</label>
+          <input type="text" name="c_email_4" class="form-control" value="{{ contact.c_email_4 }}" maxlength="200" disabled>
+        </div>
+      </div>
+      {% else %}
+      {% endif %}
+      {% if contact.c_name_5 %}
+      <div class="row align-items-end">
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Name</label>
+          <input type="text" name="c_name_5" class="form-control" value="{{ contact.c_name_5 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Number</label>
+          <input type="text" name="c_num_5" class="form-control" value="{{ contact.c_num_5 }}" maxlength="200" disabled>
+        </div>
+        <div class="col">
+          <label for="disabledTextInput" class="form-label">Contact Email</label>
+          <input type="text" name="c_email_5" class="form-control" value="{{ contact.c_email_5 }}" maxlength="200" disabled>
+        </div>
+      </div>
+      {% else %}
+      {% endif %}
+
+    {% endfor %}
+    <br>
+    {% for contact in contacts %}
+    <center><a class="btn btn-outline-secondary btn-sm" href="{% url 'add_contact' client.id contact.id %}" role="button">Add/Modify Contacts</a></center>
+    {% endfor %}
+{% endif %}
+{% endblock %}
