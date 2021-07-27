@@ -77,8 +77,15 @@
           <div class="col">
 
           </div>
-          <div class="col-2">
-            <a class="btn btn-outline-secondary btn-sm" href="{% url 'edit_1' documents.id %}" role="button">Add Contact</a>
+          <div class="col-3">
+            {% if contacts %}
+            {% for contact in contacts %}
+            <a class="btn btn-outline-secondary btn-sm" href="{% url 'add_contact' documents.id contact.id %}" role="button">Add/Modify Contacts</a>
+            {% endfor %}
+            {%else%}
+            <a class="btn btn-outline-secondary btn-sm" href="{% url 'add_contact_item' documents.id %}" role="button">Add Contact</a>
+            {% endif %}
+            <a class="btn btn-outline-secondary btn-sm" href="{% url 'view_contact' documents.id %}" role="button">View All Contacts</a>
           </div>
           <div class="col">
 

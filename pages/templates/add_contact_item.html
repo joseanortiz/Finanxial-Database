@@ -7,6 +7,14 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
   <br/><br/>
   <h3 class="text-muted">Add Contact</h3>
+  {%for message in messages %}
+     {%if "add_client" in message.tags %}
+     <div class="alert alert-danger" role="alert">
+       {{ message }}
+       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+     </div>
+     {%endif%}
+  {%endfor%}
 
 <form action='' method=POST>
   {% csrf_token %}
@@ -14,24 +22,71 @@
 <p> <select name="client_name" class="form-control" placeholder="Client" required id="id_client_name">
   <option value="{{ client.id }}" selected>{{ client.client_name }}</option>
 </select></p>
+<br>
 
-
-<p>{{ form.c_name_1}}</p>
-<p>{{ form.c_num_1}}</p>
-<p>{{ form.c_email_1}}</p>
-<p><label for="id_c_name_2">(Optional):</label> <input type="text" name="c_name_2" class="form-control" placeholder="Contact Name" maxlength="200" ></p>
-<p>{{ form.c_num_2}}</p>
-<p>{{ form.c_email_2}}</p>
-<p><label for="id_c_name_3">(Optional):</label> <input type="text" name="c_name_3" class="form-control" placeholder="Contact Name" maxlength="200" ></p>
-<p>{{ form.c_num_3}}</p>
-<p>{{ form.c_email_3}}</p>
-<p><label for="id_c_name_4">(Optional):</label> <input type="text" name="c_name_4" class="form-control" placeholder="Contact Name" maxlength="200" ></p>
-<p>{{ form.c_num_4}}</p>
-<p>{{ form.c_email_4}}</p>
-<p><label for="id_c_name_5">(Optional):</label> <input type="text" name="c_name_5" class="form-control" placeholder="Contact Name" maxlength="200" ></p>
-<p>{{ form.c_num_5}}</p>
-<p>{{ form.c_email_5}}</p>
-
+<div class="row">
+  <div class="col">
+    <input type="text" name="c_name_1" class="form-control" placeholder="Contact Name" maxlength="200" id="id_c_name_1">
+  </div>
+  <div class="col">
+    <input type="tel" name="c_num_1"  class="form-control" placeholder="Contact Number" maxlength="128" id="id_c_num_1">
+  </div>
+  <div class="col">
+    <input type="email" name="c_email_1" class="form-control" placeholder="Contact Email" maxlength="200" id="id_c_email_1">
+  </div>
+</div>
+<br>
+<p><label for="id_c_name_2">(Optional):</label></p>
+<div class="row">
+  <div class="col">
+    <input type="text" name="c_name_2"  class="form-control" placeholder="Contact Name" maxlength="200" id="id_c_name_2">
+  </div>
+  <div class="col">
+    <input type="tel" name="c_num_2"  class="form-control" placeholder="Contact Number" maxlength="128" id="id_c_num_2">
+  </div>
+  <div class="col">
+    <input type="email" name="c_email_2"  class="form-control" placeholder="Contact Email" maxlength="200" id="id_c_email_2">
+  </div>
+</div>
+<br>
+<p><label for="id_c_name_3">(Optional):</label></p>
+<div class="row">
+  <div class="col">
+    <p><input type="text" name="c_name_3"  class="form-control" placeholder="Contact Name" maxlength="200" id="id_c_name_3"></p>
+  </div>
+  <div class="col">
+    <p><input type="tel" name="c_num_3"  class="form-control" placeholder="Contact Number" maxlength="128" id="id_c_num_3"></p>
+  </div>
+  <div class="col">
+    <p><input type="email" name="c_email_3"  class="form-control" placeholder="Contact Email" maxlength="200" id="id_c_email_3"></p>
+  </div>
+</div>
+<p><label for="id_c_name_4">(Optional):</label></p>
+<div class="row">
+  <div class="col">
+    <input type="text" name="c_name_4" class="form-control" placeholder="Contact Name" maxlength="200" id="id_c_name_4">
+  </div>
+  <div class="col">
+    <input type="tel" name="c_num_4" class="form-control" placeholder="Contact Number" maxlength="128" id="id_c_num_4">
+  </div>
+  <div class="col">
+    <input type="email" name="c_email_4" class="form-control" placeholder="Contact Email" maxlength="200" id="id_c_email_4">
+  </div>
+</div>
+<br>
+<p><label for="id_c_name_5">(Optional):</label></p>
+<div class="row">
+  <div class="col">
+    <input type="text" name="c_name_5" class="form-control" placeholder="Contact Name" maxlength="200" id="id_c_name_5">
+  </div>
+  <div class="col">
+    <input type="tel" name="c_num_5" class="form-control" placeholder="Contact Number" maxlength="128" id="id_c_num_5">
+  </div>
+  <div class="col">
+    <input type="email" name="c_email_5" class="form-control" placeholder="Contact Email" maxlength="200" id="id_c_email_5">
+  </div>
+</div>
+<br>
   <center><button type="submit" value="Submit" class="btn btn-outline-primary">Submit</button></center>
 </form>
   <br><br><br>

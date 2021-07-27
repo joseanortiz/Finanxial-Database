@@ -30,6 +30,7 @@ class Client(models.Model):
     consulting = models.BooleanField(default=False)
     investment = models.BooleanField(default=False)
     planning = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add = True, auto_now = False)
 
 
     def __str__(self):
@@ -54,11 +55,18 @@ class ClientGroup(models.Model):
     def __str__(self):
         return self.client_group
 
-class Employee(models.Model):
+class Manager(models.Model):
     manager = models.CharField(max_length=200)
 
     def __str__(self):
         return self.manager
+
+class Partner(models.Model):
+    partner = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.partner
+
 
 class Industrie(models.Model):
     industry_type_drop = models.CharField(max_length=200)

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Client, File, ClientGroup, Employee, Industrie, Contact
+from .models import Client, File, ClientGroup, Industrie, Contact
 from phonenumber_field.formfields import PhoneNumberField
 
 class ClientForm(forms.ModelForm):
@@ -90,16 +90,6 @@ class ClientGroupForm(forms.ModelForm):
             'client_group': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Client Group' }),
         }
 
-class EmployeeForm(forms.ModelForm):
-    class meta:
-        model = Employee
-        fields = ['manager']
-        labels = {
-        'manager':'',
-        }
-        widgets = {
-            'manager': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Manager'}),
-        }
 
 class IndustryForm(forms.ModelForm):
     class Meta:

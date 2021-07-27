@@ -36,7 +36,7 @@
    <select name="industry_type" class="form-control" required id="id_industry_type">
      <option value="{{ item.industry_type }}" class="text-muted">{{ item.industry_type }}</option>
      {% for industry in industries %}
-     <option value="{{industry.industry_type}}">{{industry.industry_type }}</option>
+     <option value="{{industry.industry_type_drop }}">{{ industry.industry_type_drop }}</option>
      {% endfor %}
      <option value="Other">Other</option>
    </select>

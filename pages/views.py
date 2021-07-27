@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Client , File, ClientGroup, Employee, Industrie, Contact
-from .forms import ClientForm, FileForm, ClientGroupForm, EmployeeForm, IndustryForm, ContactForm
+from .models import Client , File, ClientGroup, Manager, Industrie, Contact, Partner
+from .forms import ClientForm, FileForm, ClientGroupForm, IndustryForm, ContactForm
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 import smtplib
@@ -74,12 +74,13 @@ def searchCN_id(request, group_id):
 def searchCN_q(request):
     if request.method == "POST":
         groups = ClientGroup.objects.all
-        searched = request.POST['searched']
+        global searched_cn
+        searched_cn = request.POST['searched']
         clients = Client.objects.filter(
-        client_name__icontains=searched
+        client_name__icontains=searched_cn
         )
 
-        return render(request, 'client_name_q.html', {'searched':searched, 'clients':clients, 'groups':groups})
+        return render(request, 'client_name_q.html', {'searched':searched_cn, 'clients':clients, 'groups':groups})
     else:
         return render(request, 'client_name_q.html', {})
 
@@ -91,12 +92,32 @@ def searchCN_filter(request):
         filter_len = len(filter_str)
         filter_list = filter_str[9:filter_len]
         clients = Client.objects.filter(
-        bank_accounts__icontains=''
+        client_name__icontains=searched_cn
         )
 
         try:
+            if filter['flexRadioDefault'] == 'alpha':
+                check = 'alpha'
+        except:
+            print("continue")
+        try:
+            if filter['flexRadioDefault'] == 'newest':
+                check = 'newest'
+        except:
+            print("continue")
+        try:
+            if filter['flexRadioDefault'] == 'oldest':
+                check = 'oldest'
+        except:
+            print("continue")
+        try:
+            if filter['flexRadioDefault'] == 'default':
+                check = 'default'
+        except:
+            print("continue")
+        try:
             if filter['accountingCheck'] == 'on':
-                check = 'funciona'
+
                 clients =   clients.filter(
                 accounting__icontains='True'
                 )
@@ -104,7 +125,7 @@ def searchCN_filter(request):
             print("continue")
         try:
             if filter['taxesCheck']:
-                check = 'funciona'
+
                 clients = clients.filter(
                 taxes__icontains='True'
                 )
@@ -112,7 +133,7 @@ def searchCN_filter(request):
             print("continue")
         try:
             if filter['auditsCheck']:
-                check = 'funciona'
+
                 clients =  clients.filter(
                 audits__icontains='True'
                 )
@@ -120,7 +141,7 @@ def searchCN_filter(request):
             print("continue")
         try:
             if filter['consultingCheck']:
-                check = 'funciona'
+
                 clients = clients.filter(
                 consulting__icontains='True'
                 )
@@ -128,7 +149,7 @@ def searchCN_filter(request):
             print("continue")
         try:
             if filter['investmentCheck']:
-                consultingCheck = 'funciona'
+                consulting
                 clients = clients.filter(
                 investment__icontains='True'
                 )
@@ -136,14 +157,18 @@ def searchCN_filter(request):
             print("continue")
         try:
             if filter['planningCheck']:
-                check = 'funciona'
+
                 clients = clients.filter(
                 planning__icontains='True'
                 )
         except:
             print("continue")
 
-        return render(request, 'client_name_filter.html', {'filter':filter, 'clients':clients, 'check':check, 'filter_list':filter_list, 'groups':groups})
+        alpha = clients.order_by('client_name')
+        newest = clients.order_by('created')
+        oldest = clients.order_by('-created')
+
+        return render(request, 'client_name_filter.html', {'filter':filter, 'clients':clients, 'check':check, 'filter_list':filter_list, 'groups':groups, 'searched':searched_cn, 'alpha':alpha, 'newest':newest, 'oldest':oldest})
     else:
         return render(request, 'client_name_filter.html', {})
 
@@ -259,12 +284,13 @@ def client(request):
     else:
         industries = Industrie.objects.all
         clients = Client.objects.all
-        managers = Employee.objects.all
+        managers = Manager.objects.all
+        partners = Partner.objects.all
         groups = ClientGroup.objects.all
         ct_message = 'Choose Client Type'
         form = ClientForm(initial = {'client_type': ct_message})
 
-    return render(request, "addclient.html", {'form': form, 'groups':groups, 'managers':managers, 'clients':clients, 'industries':industries})
+    return render(request, "addclient.html", {'form': form, 'groups':groups, 'managers':managers, 'partners':partners, 'clients':clients, 'industries':industries})
 
 # #Add Client Page:
 # def client_1(request):
@@ -281,7 +307,7 @@ def client(request):
 #     else:
 #         industries = Industrie.objects.all
 #         clients = Client.objects.all
-#         managers = Employee.objects.all
+#         managers = Manager.objects.all
 #         groups = ClientGroup.objects.all
 #         ct_message = 'Choose Client Type'
 #         form = ClientForm(initial = {'client_type': ct_message})
@@ -346,7 +372,7 @@ def duplicate_client(request, list_id):
     else:
         industries = Industrie.objects.all
         clients = Client.objects.all
-        managers = Employee.objects.all
+        managers = Manager.objects.all
         item = Client.objects.get(pk=list_id)
         groups = ClientGroup.objects.all
         ct_message = 'Choose Client Type'
@@ -371,9 +397,10 @@ def document_id(request, list_id):
         documents = Client.objects.get(pk=list_id)
         groups = ClientGroup.objects.all
         document_list = File.objects.filter(client=list_id)
+        contact = Contact.objects.filter(client_name=list_id)
         form = FileForm()
         formC = ClientForm()
-        context = {'form':form, 'formC':formC, 'documents':documents, 'document_list':document_list, 'groups':groups, }
+        context = {'form':form, 'formC':formC, 'documents':documents, 'document_list':document_list, 'groups':groups, 'contacts':contact}
 
     return render(request, 'add_document_id.html', context)
 
@@ -512,6 +539,10 @@ def add_contact(request, list_id, contact_id):
         if form.is_valid():
             form.save()
             return redirect('client_page', list_id)
+        else:
+            messages.error(request, 'Invalid Phone Number (Must be xxx-xxx-xxxx or xxxxxxxxxx)', extra_tags='add_contact')
+            return redirect('add_contact', list_id, contact_id)
+
     else:
         client = Client.objects.get(pk=list_id)
         contact = Contact.objects.filter(client_name=list_id)
@@ -526,6 +557,9 @@ def add_contact_item(request, list_id):
             if form.is_valid():
                 form.save()
                 return redirect('client_page', list_id)
+            else:
+                messages.error(request, 'Invalid Phone Number (Must be xxx-xxx-xxxx or xxxxxxxxxx)', extra_tags='add_contact_item')
+                return redirect('add_contact_item', list_id)
         else:
             client = Client.objects.get(pk=list_id)
             contact = Contact.objects.filter(client_name=list_id)
